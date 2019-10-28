@@ -1,10 +1,11 @@
 #include <iostream>
-#include "./Network.h"
+#include "../Network/ANN/ANN.h"
 
 using namespace std;
 
 int main() 
 {
-    Network n = Network();
+    ANN n = ANN();
+    n.addLayer(10);
     return 0;
 }
