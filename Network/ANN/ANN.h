@@ -13,17 +13,16 @@ public:
     void addLayer(int size);
 
     void setInputSize(int size);
-    void setOutputSize(int size);
     void setLearningRate(int learning_rate);
 
     void build();
+    Eigen::MatrixXf predict(Eigen::MatrixXf input);
 
     ~ANN();
 
 private:
-    vector<Layer> layers;
+    vector<Layer*> layers;
     vector<int> layerSizes; 
     int inputSize = 0;
-    int outputSize = 0;
     double learning_rate;
 };
