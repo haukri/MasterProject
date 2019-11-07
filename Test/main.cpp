@@ -1,18 +1,21 @@
 #include <iostream>
 #include "../Network/ANN/ANN.h"
 #include "../Eigen/Dense"
+#include "../Network/ANN/activation_functions.h"
 
 using namespace std;
 
 int main() 
 {
     ANN n = ANN();
-    n.setInputSize(5);
-    n.addLayer(10);
-    n.addLayer(20);
-    n.addLayer(2);
-    n.build();
-    Eigen::MatrixXf input = Eigen::MatrixXf(1, 5);
-    n.predict(input);
+    n.setInputSize(2);
+    n.addLayer(2, "tanh");
+    n.addLayer(2, "tanh");
+    Eigen::MatrixXd input = Eigen::MatrixXd(1, 2);
+    for(int i = 0; i < 2; i++) {
+        input(0, i) = 2;
+    }
+    cout << "Prediction" << endl;
+    cout << n.predict(input) << endl;
     return 0;
 }

@@ -1,25 +1,32 @@
-#pragma once
+#ifndef DENSE_H
+#define DENSE_H
+
+
 #include <vector>
 #include "../../Eigen/Dense"
 #include "./Layer.h"
 #include <iostream>
+#include "./activation_functions.h"
 
 using namespace std;
 
 class Dense : public Layer
 {
 public:
-    Dense(int input_size, int output_size, double learning_rate);
+    Dense(int input_size, int output_size, double learning_rate, string type);
 
-    Eigen::MatrixXf forward(Eigen::MatrixXf input);
-    Eigen::MatrixXf backward(Eigen::MatrixXf input, Eigen::MatrixXf grad_output);
-    Eigen::MatrixXf getActivation();
+    Eigen::MatrixXd forward(Eigen::MatrixXd input);
+    Eigen::MatrixXd backward(Eigen::MatrixXd input, Eigen::MatrixXd grad_output);
+    Eigen::MatrixXd getActivation();
 
     ~Dense();
 
 private:
-    Eigen::MatrixXf weigths;
-    Eigen::MatrixXf biases;
-    Eigen::MatrixXf activation;
+    Eigen::MatrixXd weigths;
+    Eigen::MatrixXd biases;
+    Eigen::MatrixXd activation;
     double learning_rate;
+    string type;
 };
+
+#endif
