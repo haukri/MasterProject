@@ -1,7 +1,7 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "../../Eigen/Dense"
+#include "../../Eigen/Core"
 #include <iostream>
 
 class Layer
