@@ -15,9 +15,9 @@ public:
     void addLayer(int size, string type);
 
     void setInputSize(int size);
-    void setLearningRate(int learning_rate);
+    void setLearningRate(double learning_rate);
 
-    void build();
+    void fit(Eigen::MatrixXd X, Eigen::MatrixXd y);
     Eigen::MatrixXd predict(Eigen::MatrixXd input);
 
     ~ANN();

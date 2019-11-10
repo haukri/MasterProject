@@ -8,5 +8,15 @@ double activation_functions::tanh_transfer(double x)
 
 double activation_functions::tanh_transfer_derivative(double x)
 {
-    return 1 - (tanh(x)*tanh(x));
+    return 1 - (x*x);
+}
+
+double activation_functions::sigmoid_transfer(double x)
+{
+    return 1 / (1 + exp(-x));
+}
+
+double activation_functions::sigmoid_transfer_derivative(double x)
+{
+    return  x * (1 - x);
 }

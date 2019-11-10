@@ -13,9 +13,9 @@ public:
         return input;
     }
     
-    virtual Eigen::MatrixXd backward(Eigen::MatrixXd input, Eigen::MatrixXd grad_output) {
+    virtual Eigen::MatrixXd backward(Eigen::MatrixXd grad_output) {
         std::cout << "Backward not implemented!" << std::endl;
-        return input;
+        return grad_output;
     }
 
 private:

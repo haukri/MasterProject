@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./ANN.h"
+#include <assert.h>
 
 using namespace std;
 
@@ -17,14 +18,19 @@ void ANN::setInputSize(int size) {
     inputSize = size;
 }
 
-void ANN::setLearningRate(int learning_rate) {
-    learning_rate = learning_rate;
+void ANN::setLearningRate(double nlearning_rate) {
+    learning_rate = nlearning_rate;
 }
 
-void ANN::build() {
-    for(int outputSize : layerSizes) {
-        // layers.push_back(new Dense(inputSize, outputSize, learning_rate));
-        // inputSize = outputSize;
+void ANN::fit(Eigen::MatrixXd X, Eigen::MatrixXd y) {
+    // Calculate feed forward for X
+    Eigen::MatrixXd predicted = predict(X);
+    // Calculate error for output
+    Eigen::MatrixXd error = y - predicted;
+    error.transposeInPlace();
+    // Backpropagate error
+    for(int i = layers.size()-1; i > 0; i--) {
+        error = layers[i]->backward(error);
     }
 }
 
