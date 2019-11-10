@@ -26,11 +26,11 @@ int main()
         y(j,0) = labels[j];
     }
     
-    for(int i = 0; i < 5000; i++) {
+    for(int i = 0; i < 1000; i++) {
         n.fit(X, y);
         if(i % 10 == 0) {
             Eigen::MatrixXd se = (y - n.predict(X)).array().pow(2);
-            cout << se.mean() << endl;
+            cout << "Epoch: " << i << " MSE: " << se.mean() << endl;
         }
     }
     return 0;
