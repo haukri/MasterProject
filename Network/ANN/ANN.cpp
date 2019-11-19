@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./ANN.h"
+#include "ANN.h"
 #include <assert.h>
 
 using namespace std;

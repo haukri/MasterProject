@@ -3,7 +3,18 @@ project(MasterProject)
 
 SET(GCC_COVERAGE_COMPILE_FLAGS "-O2")
 SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+
+INCLUDE_DIRECTORIES(
+  include
+  ${CMAKE_SOURCE_DIR}
+)
  
 add_subdirectory(Network)
 add_subdirectory(Test)
 add_subdirectory(Eigen)
+
+ADD_CUSTOM_TARGET(debug
+  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
+  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
+  COMMENT "Switch CMAKE_BUILD_TYPE to Debug"
+)

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../Network/ANN/ANN.h"
-#include "../Eigen/Core"
-#include "../Network/ANN/activation_functions.h"
+#include "Network/ANN/ANN.h"
+#include "Eigen/Core"
+#include "Network/ANN/activation_functions.h"
 
 using namespace std;
 

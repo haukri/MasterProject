@@ -3,10 +3,10 @@
 
 
 #include <vector>
-#include "../../Eigen/Core"
-#include "./Layer.h"
+#include "Eigen/Core"
+#include "Layer.h"
 #include <iostream>
-#include "./activation_functions.h"
+#include "activation_functions.h"
 
 using namespace std;
 

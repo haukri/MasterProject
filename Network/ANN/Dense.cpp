@@ -1,4 +1,4 @@
-#include "./Dense.h"
+#include "Dense.h"
 #include <random>
 #include <chrono>
 

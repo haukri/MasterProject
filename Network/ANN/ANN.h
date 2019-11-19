@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
-#include "../../Eigen/Core"
-#include "./Layer.h"
-#include "./Dense.h"
-#include "./activation_functions.h"
+#include "Eigen/Core"
+#include "Layer.h"
+#include "Dense.h"
+#include "activation_functions.h"
 
 using namespace std;
 

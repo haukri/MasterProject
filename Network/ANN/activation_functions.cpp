@@ -1,4 +1,4 @@
-#include "./activation_functions.h"
+#include "activation_functions.h"
 #include <math.h> 
 
 double activation_functions::tanh_transfer(double x)

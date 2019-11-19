@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./Network.h"
+#include "Network.h"
 
 using namespace std;
 
