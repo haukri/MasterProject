@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include "Neuron.h"
-#include "Parameter.h"
+#include "Network/utils/Parameters.h"
 
-struct LIF_param {
+struct LIF_param : Parameters {
     // Membrane resting potential in mV
-    double u_rest = 0.0;
+    double u_rest = -70.0;
     // Membrane threshold potential in mV
-    double u_thresh = 1.0;
+    double u_thresh = -50.0;
     // Duration of the resting period in ms
     double tau_rest = 4.0;
     // Membrane resistance in Ohm
@@ -22,11 +22,18 @@ class LIF : public Neuron
 {
 public:
     LIF();
-    LIF(LIF_param &param);
-    void update();
+    LIF(LIF_param*);
+    void update(double, double);
+    double getMembranePotential();
     ~LIF();
 private:
-    LIF_param* params;
+    void integrate();
+    void fire();
+    void rest();
+    double t_rest, u, i;
+    double input = 0.0;
+    double dt;
+    LIF_param* param;
 };
 
 

@@ -11,3 +11,11 @@ Population::Population(int amount, string modelName) {
         }
     }
 }
+
+Population::Population(int amount, string modelName, Parameters* param) {
+    if(modelName == "lif") {
+        for(int i = 0; i < amount; i++) {
+            neurons.push_back(new LIF(static_cast<LIF_param*>(param)));
+        }
+    }
+}
