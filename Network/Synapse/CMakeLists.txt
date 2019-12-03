@@ -1,3 +1,3 @@
-add_library (Synapse Synapse.h Synapse.cpp StaticSynapse.h StaticSynapse.cpp)
+add_library (Synapse Synapse.h StaticSynapse.h StaticSynapse.cpp)
 
 target_link_libraries(Synapse Network)

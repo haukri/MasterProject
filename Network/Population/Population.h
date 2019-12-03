@@ -1,20 +1,19 @@
 #pragma once
+
 #include <iostream>
-#include <string>
 #include <vector>
-#include "Network/Neuron/Neuron.h"
-#include "Network/utils/Parameters.h"
 
 class Population
 {
 public:
-    Population(int, std::string);
-    Population(int, std::string, Parameters*);
-    virtual void update()
+    virtual void update(std::vector<double> &input, double dt)
     {
         std::cout << "Update not implemented!" << std::endl;
     }
-
+    virtual int getNumberOfNeurons() {
+        return numberOfNeurons;
+    }
+    int numberOfNeurons;
 private:
-    std::vector<Neuron*> neurons;
+
 };

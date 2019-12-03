@@ -5,7 +5,6 @@
 class Synapse
 {
 public:
-    Synapse();
 
 private:
 };

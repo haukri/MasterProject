@@ -11,7 +11,7 @@ LIF::LIF() : param(new LIF_param) {
 
 LIF::LIF(LIF_param* param) : param(param) { }
 
-void LIF::update(double n_input, double n_dt) {
+double LIF::update(double n_input, double n_dt) {
     input = n_input;
     dt = n_dt;
     if(t_rest > 0.0) {
@@ -23,6 +23,7 @@ void LIF::update(double n_input, double n_dt) {
     else {
         integrate();
     }
+    return t_rest > 0.0 ? 0.01 : 0;
 }
 
 void LIF::integrate() {

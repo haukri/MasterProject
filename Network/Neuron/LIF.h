@@ -23,7 +23,7 @@ class LIF : public Neuron
 public:
     LIF();
     LIF(LIF_param*);
-    void update(double, double);
+    double update(double, double);
     double getMembranePotential();
     ~LIF();
 private:

@@ -6,7 +6,7 @@
 class Neuron
 {
 public:
-    virtual void update()
+    virtual double update(double input, double dt)
     {
         std::cout << "Update not implemented!" << std::endl;
     }
