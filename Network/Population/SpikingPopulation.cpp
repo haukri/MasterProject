@@ -6,9 +6,10 @@
 using namespace std;
 
 SpikingPopulation::SpikingPopulation(int amount, string modelName) {
-    output = vector<double>(amount);
+    output = vector<double>(amount, 0.0);
     numberOfNeurons = amount;
-    if(modelName == "lif") {
+    clock = Clock::getInstance();
+    if(modelName == "iaf") {
         for(int i = 0; i < amount; i++) {
             neurons.push_back(new LIF());
         }
@@ -21,9 +22,10 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName) {
 }
 
 SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* param) {
-    output = vector<double>(amount);
+    output = vector<double>(amount, 0.0);
     numberOfNeurons = amount;
-    if(modelName == "lif") {
+    clock = Clock::getInstance();
+    if(modelName == "iaf") {
         for(int i = 0; i < amount; i++) {
             neurons.push_back(new LIF(static_cast<LIF_param*>(param)));
         }
@@ -33,15 +35,16 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* p
             neurons.push_back(new Izhikevich(static_cast<Izhikevich_param*>(param)));
         }
     }
-}
-
-void SpikingPopulation::update(vector<double> &input, double dt) {
-    for(int i = 0; i < input.size(); i++) {
-        output[i] = neurons[i]->update(input[i], dt);
+    else {
+        // throw exception
     }
-    current_time += dt;
 }
 
-double SpikingPopulation::getCurrentTime() {
-    return current_time;
+void SpikingPopulation::update(vector<double> &input) {
+    while(current_time < clock->getCurrentTime()) {
+        for(int i = 0; i < input.size(); i++) {
+            output[i] = neurons[i]->update(input[i], clock->getDt());
+        }
+        current_time += clock->getDt();
+    }
 }

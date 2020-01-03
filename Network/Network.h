@@ -3,6 +3,7 @@
 #include "Network/Population/Population.h"
 #include "Network/Synapse/Synapse.h"
 #include "Network/utils/Parameters.h"
+#include "Network/utils/Clock.h"
 #include <vector>
 
 struct Network_param {
@@ -20,6 +21,10 @@ public:
     ~Network();
 
 private:
+    void update();
+    bool networkContainsPopulation(Population*);
     std::vector<Synapse*> synapses;
     Network_param* param;
+    std::vector<Population*> populations;
+    Clock* clock;
 };

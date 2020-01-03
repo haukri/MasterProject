@@ -16,11 +16,8 @@ class StaticSynapse : public Synapse
 public:
     StaticSynapse(Population* n_from, Population* n_to);
     StaticSynapse(Population* n_from, Population* n_to, StaticSynapse_param*);
-    void update(double);
-
+    void update();
 private:
-    Population* from_population;
-    Population* to_population;
     StaticSynapse_param* param;
     Eigen::MatrixXd weights;
     std::vector<double> output;
