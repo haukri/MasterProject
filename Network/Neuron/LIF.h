@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Neuron.h"
 #include "Network/utils/Parameters.h"
+#include "Network/utils/Event.h"
 
 struct LIF_param : Parameters {
     // Membrane resting potential in mV
@@ -23,7 +24,8 @@ class LIF : public Neuron
 public:
     LIF();
     LIF(LIF_param*);
-    double update(double, double);
+    Event update(double);
+    void handleEvent(Event*);
     double getMembranePotential();
     ~LIF();
 private:

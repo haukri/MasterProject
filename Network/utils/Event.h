@@ -1,17 +1,29 @@
 #pragma once
 
-enum EventType { SpikeEvent, CurrentEvent };
+enum EventType { Spike, Current, No };
 
 struct Event {
+    EventType type = EventType::No;
 };
 
 struct SpikeEvent : Event {
-    const EventType type = EventType::SpikeEvent;
-    bool spike;
-    int multiplicity;
+    SpikeEvent() {
+        type = EventType::Spike;
+    }
+    int multiplicity = 0;
+    double weight = 0.0;
 };
 
 struct CurrentEvent : Event {
-    const EventType type = EventType::CurrentEvent;
-    double current;
+    CurrentEvent() {
+        type = EventType::Current;
+    }
+    double current = 0.0;
+    double weight = 0.0;
+};
+
+struct NoEvent : Event {
+    NoEvent() {
+       type = EventType::No;
+    }
 };

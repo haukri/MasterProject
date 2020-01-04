@@ -1,5 +1,6 @@
 #include "LIF.h"
 #include <iostream>
+#include "Network/utils/Event.h"
 
 using namespace std;
 
@@ -11,19 +12,19 @@ LIF::LIF() : param(new LIF_param) {
 
 LIF::LIF(LIF_param* param) : param(param) { }
 
-double LIF::update(double n_input, double n_dt) {
-    input = n_input;
+Event LIF::update(double n_dt) {
     dt = n_dt;
     if(t_rest > 0.0) {
         rest();
     }
     else if(u > param->u_thresh) {
         fire();
+        return SpikeEvent();
     }
     else {
         integrate();
     }
-    return t_rest > 0.0 ? 0.01 : 0;
+    return NoEvent();
 }
 
 void LIF::integrate() {
@@ -45,6 +46,10 @@ void LIF::rest() {
 double LIF::getMembranePotential() {
     return u;
 };
+
+void LIF::handleEvent(Event* e) {
+    // TODOS
+}
 
 LIF::~LIF() {
 }

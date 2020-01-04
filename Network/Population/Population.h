@@ -2,11 +2,12 @@
 
 #include <iostream>
 #include <vector>
+#include "Network/utils/Event.h"
 
 class Population
 {
 public:
-    virtual void update(std::vector<double> &input)
+    virtual void update()
     {
         std::cout << "Update not implemented!" << std::endl;
     }
@@ -14,10 +15,12 @@ public:
         return numberOfNeurons;
     }
 
-    virtual std::vector<double> getOutput() {
+    virtual std::vector<Event> getEvents() {
         return output;
     }
-    std::vector<double> output;
+
+    std::vector<Event> input;
+    std::vector<Event> output;
     int numberOfNeurons;
 private:
 

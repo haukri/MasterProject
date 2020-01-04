@@ -12,7 +12,7 @@ class SpikingPopulation : public Population
 public:
     SpikingPopulation(int, std::string);
     SpikingPopulation(int, std::string, Parameters*);
-    void update(std::vector<double> &input);
+    void update();
     double getCurrentTime();
 
 private:

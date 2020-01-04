@@ -26,12 +26,12 @@ StaticSynapse::StaticSynapse(Population* n_from, Population* n_to, StaticSynapse
 }
 
 void StaticSynapse::update() {
-    vector<double> input = from_population->getOutput();
+    vector<Event> input = from_population->getEvents();
     std::fill(output.begin(), output.end(), 0.0);
     for(int i = 0; i < outputSize; i++) {
         for(int j = 0; j < inputSize; j++) {
-            output[i] += weights(j, i) * input[j];
+            // output[i] += weights(j, i) * input[j];
         }
     }
-    to_population->update(output);
+    to_population->update();
 }
