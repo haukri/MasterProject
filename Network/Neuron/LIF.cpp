@@ -12,19 +12,19 @@ LIF::LIF() : param(new LIF_param) {
 
 LIF::LIF(LIF_param* param) : param(param) { }
 
-Event LIF::update(double n_dt) {
+Event* LIF::update(double n_dt) {
     dt = n_dt;
     if(t_rest > 0.0) {
         rest();
     }
     else if(u > param->u_thresh) {
         fire();
-        return SpikeEvent();
+        return new SpikeEvent();
     }
     else {
         integrate();
     }
-    return NoEvent();
+    return new NoEvent();
 }
 
 void LIF::integrate() {

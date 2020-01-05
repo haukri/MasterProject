@@ -18,9 +18,10 @@ class Izhikevich : public Neuron
 public:
     Izhikevich();
     Izhikevich(Izhikevich_param*);
-    Event update(double);
+    Event* update(double);
     void handleEvent(Event*);
     double getMembranePotential();
+    void resetInput();
     ~Izhikevich();
 private:
     double u, v, du, dv;

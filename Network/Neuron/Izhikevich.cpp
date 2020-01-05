@@ -9,9 +9,12 @@ Izhikevich::Izhikevich() : param(new Izhikevich_param) {
     u = 0.0;
 }
 
-Izhikevich::Izhikevich(Izhikevich_param* param) : param(param) { }
+Izhikevich::Izhikevich(Izhikevich_param* param) : param(param) {
+    v = param->c;
+    u = 0.0;
+}
 
-Event Izhikevich::update(double n_dt) {
+Event* Izhikevich::update(double n_dt) {
     dt = n_dt;
     
     dv = 0.04*v*v + 5*v + 140 - u + input_current;
@@ -25,10 +28,15 @@ Event Izhikevich::update(double n_dt) {
     if(v > param->v_thres) {
         v = param->c;
         u += param->d;
-        return SpikeEvent();
+        return new SpikeEvent();
     }
 
-    return NoEvent();
+    return new NoEvent();
+}
+
+void Izhikevich::resetInput() {
+    input_spike = 0.0;
+    input_current = 0.0;
 }
 
 double Izhikevich::getMembranePotential() {
@@ -37,16 +45,10 @@ double Izhikevich::getMembranePotential() {
 
 void Izhikevich::handleEvent(Event* e) {
     if(e->type == EventType::Spike) {
-        input_spike = static_cast<SpikeEvent*>(e)->weight * static_cast<SpikeEvent*>(e)->multiplicity;
-        input_current = 0.0;
+        input_spike += static_cast<SpikeEvent*>(e)->weight * static_cast<SpikeEvent*>(e)->multiplicity;
     }
     else if(e->type == EventType::Current) {
-        input_current = static_cast<CurrentEvent*>(e)->weight * static_cast<CurrentEvent*>(e)->current;
-        input_spike = 0.0;
-    }
-    else {
-        input_current = 0.0;
-        input_spike = 0.0;
+        input_current += static_cast<CurrentEvent*>(e)->weight * static_cast<CurrentEvent*>(e)->current;
     }
 }
 

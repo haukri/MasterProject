@@ -24,7 +24,7 @@ class LIF : public Neuron
 public:
     LIF();
     LIF(LIF_param*);
-    Event update(double);
+    Event* update(double);
     void handleEvent(Event*);
     double getMembranePotential();
     ~LIF();

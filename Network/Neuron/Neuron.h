@@ -7,15 +7,15 @@
 class Neuron
 {
 public:
-    virtual Event update(double dt)
+    virtual Event* update(double dt)
     {
         throw "Update not implemented!";
     }
-    virtual void handleEvent(SpikeEvent* e) {
-        throw "HandleEvent for SpikeEvent not implemented!";
+    virtual void handleEvent(Event* e) {
+        throw "HandleEvent not implemented!";
     }
-    virtual void handleEvent(CurrentEvent* e) {
-        throw "HandleEvent for CurrentEvent not implemented!";
+    virtual void resetInput() {
+        throw "resetInput not implemented!";
     }
 private:
 };

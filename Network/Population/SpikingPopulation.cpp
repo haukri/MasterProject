@@ -7,9 +7,8 @@
 using namespace std;
 
 SpikingPopulation::SpikingPopulation(int amount, string modelName) {
-    output = vector<Event>(amount, NoEvent());
     numberOfNeurons = amount;
-    clock = Clock::getInstance();
+    initialize();
     if(modelName == "iaf") {
         for(int i = 0; i < amount; i++) {
             neurons.push_back(new LIF());
@@ -23,9 +22,8 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName) {
 }
 
 SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* param) {
-    output = vector<Event>(amount, NoEvent());
     numberOfNeurons = amount;
-    clock = Clock::getInstance();
+    initialize();
     if(modelName == "iaf") {
         for(int i = 0; i < amount; i++) {
             neurons.push_back(new LIF(static_cast<LIF_param*>(param)));
@@ -37,14 +35,16 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* p
         }
     }
     else {
-        // throw exception
+        // TODOS throw exception
     }
 }
 
 void SpikingPopulation::update() {
     while(current_time < clock->getCurrentTime()) {
-        for(int i = 0; i < input.size(); i++) {
-            // output[i] = neurons[i]->update(input[i], clock->getDt());
+        resetOutput();
+        for(int i = 0; i < numberOfNeurons; i++) {
+            output[i] = neurons[i]->update(clock->getDt());
+            neurons[i]->resetInput();
         }
         current_time += clock->getDt();
     }

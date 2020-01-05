@@ -3,6 +3,9 @@
 #include <iostream>
 #include <vector>
 #include "Network/utils/Event.h"
+#include "Network/utils/Clock.h"
+#include <string>
+#include "Network/Neuron/Neuron.h"
 
 class Population
 {
@@ -15,13 +18,37 @@ public:
         return numberOfNeurons;
     }
 
-    virtual std::vector<Event> getEvents() {
+    virtual std::vector<Event*> getEvents() {
         return output;
     }
 
-    std::vector<Event> input;
-    std::vector<Event> output;
+    void initialize() {
+        output = std::vector<Event*>(numberOfNeurons, NULL);
+        clock = Clock::getInstance();
+    }
+
+    void resetOutput() {
+        for(int i = 0; i < output.size(); i++) {
+            if(output[i]) {
+                delete output[i];
+                output[i] = NULL;
+            }
+        }
+    }
+
+    void setInput(int neuronIndex, Event* e) {
+        if(neuronIndex < 0 || neuronIndex >= neurons.size()) {
+            throw "Index of input neuron out of range!";
+        }
+        neurons[neuronIndex]->handleEvent(e);
+
+    }
+
+    std::vector<Event*> output;
     int numberOfNeurons;
+    std::vector<Neuron*> neurons;
+    double current_time;
+    Clock* clock;
 private:
 
 };
