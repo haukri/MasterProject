@@ -20,6 +20,5 @@ public:
 private:
     StaticSynapse_param* param;
     Eigen::MatrixXd weights;
-    std::vector<double> output;
     int inputSize, outputSize;
 };

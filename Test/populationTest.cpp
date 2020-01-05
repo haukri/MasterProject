@@ -8,6 +8,8 @@ using namespace std;
 int main() 
 {
     SpikingPopulation* p1 = new SpikingPopulation(1, "izhikevich");
+    SpikingPopulation* p2 = new SpikingPopulation(1, "CurrentGenerator");
+
     Event* e = new NoEvent();
 
     Clock* clock = Clock::getInstance();
@@ -23,11 +25,11 @@ int main()
         else if(i == 600) {
             e = new NoEvent();
         }
-        p1->setInput(0, e);
+        p2->update();
+
+        p1->setInput(0, p2->output[0]);
         p1->update();
-        if(p1->output[0]) {
-            // cout << i << endl;
-        }
+
     }
     return 0;
 }

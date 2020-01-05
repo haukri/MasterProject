@@ -4,7 +4,7 @@ enum EventType { Spike, Current, No };
 
 struct Event {
     EventType type = EventType::No;
-    virtual void add(Event e) {}
+    virtual void setWeight(double w) {}
 };
 
 struct SpikeEvent : Event {
@@ -16,8 +16,8 @@ struct SpikeEvent : Event {
         multiplicity = n_multiplicity;
         weight = n_weight;
     }
-    void add(Event e) {
-        weight += static_cast<SpikeEvent*>(&e)->weight;
+    void setWeight(double w) {
+        weight = w;
     }
     int multiplicity = 0;
     double weight = 0.0;
@@ -31,6 +31,9 @@ struct CurrentEvent : Event {
         type = EventType::Current;
         current = n_current;
         weight = n_weight;
+    }
+    void setWeight(double w) {
+        weight = w;
     }
     double current = 0.0;
     double weight = 0.0;

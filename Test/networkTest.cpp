@@ -3,21 +3,25 @@
 #include "Network/Neuron/LIF.h"
 #include "Network/Synapse/StaticSynapse.h"
 #include "Network/Network.h"
+#include "Network/Neuron/Izhikevich.h"
 
 using namespace std;
 
 int main() 
 {
     // Define population 1 with custom parameters
-    LIF_param* p1_param = new LIF_param();
-    p1_param->r = 2.0;
+    Izhikevich_param* p1_param = new Izhikevich_param();
+    p1_param->v_thres = 30;
     SpikingPopulation* p1 = new SpikingPopulation(10, "izhikevich", p1_param);
 
     // Define population 2 with default parameters
     SpikingPopulation* p2 = new SpikingPopulation(10, "izhikevich");
+
+    // Create a current generator
+    SpikingPopulation* p3 = new SpikingPopulation(10, "CurrentGenerator");
     
     // Connect the two populations together with a synapse
-    StaticSynapse* s1 = new StaticSynapse(p1, p2);
+    StaticSynapse* s1 = new StaticSynapse(p3, p2);
 
     // Create the network
     Network_param* n_param = new Network_param();

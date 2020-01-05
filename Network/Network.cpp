@@ -42,10 +42,13 @@ void Network::run(double runtime) {
 };
 
 void Network::run() {
-    cout << "Running network without time limit" << endl;   
+    cout << "Running network without time limit" << endl;
 };
 
 void Network::update() {
+    for(Population* p : populations) {
+        p->update();
+    }
     for(Synapse* s : synapses) {
         s->update();
     }

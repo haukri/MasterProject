@@ -3,6 +3,7 @@
 #include "Network/Neuron/LIF.h"
 #include "Network/Neuron/Izhikevich.h"
 #include "Network/utils/Event.h"
+#include "Network/Neuron/CurrentGenerator.h"
 
 using namespace std;
 
@@ -19,6 +20,11 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName) {
             neurons.push_back(new Izhikevich());
         }
     }
+    else if(modelName == "CurrentGenerator") {
+        for(int i = 0; i < amount; i++) {
+            neurons.push_back(new CurrentGenerator());
+        }
+    }
 }
 
 SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* param) {
@@ -32,6 +38,11 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* p
     else if(modelName == "izhikevich") {
         for(int i = 0; i < amount; i++) {
             neurons.push_back(new Izhikevich(static_cast<Izhikevich_param*>(param)));
+        }
+    }
+    else if(modelName == "CurrentGenerator") {
+        for(int i = 0; i < amount; i++) {
+            neurons.push_back(new CurrentGenerator(static_cast<CurrentGenerator_param*>(param)));
         }
     }
     else {
