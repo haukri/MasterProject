@@ -8,9 +8,12 @@ LIF::LIF() : param(new LIF_param) {
     u = param->u_rest;
     t_rest = 0.0;
     i = 0.0;
+    initialize();
 }
 
-LIF::LIF(LIF_param* param) : param(param) { }
+LIF::LIF(LIF_param* param) : param(param) {
+    initialize();
+}
 
 Event* LIF::update(double n_dt) {
     dt = n_dt;

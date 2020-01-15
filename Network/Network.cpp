@@ -8,12 +8,14 @@ Network::Network() :
     param(new Network_param())
 {
     clock = Clock::getInstance();
+    logger = Logging::getInstance();
 }
 
 Network::Network(Network_param* param) : 
     param(param) 
 {
     clock = Clock::getInstance();
+    logger = Logging::getInstance();
 }
 
 void Network::add(Synapse* n_synapse) {
@@ -39,6 +41,7 @@ void Network::run(double runtime) {
         clock->tick(param->dt);
         update();
     }
+    logger->saveLog();
 };
 
 void Network::run() {

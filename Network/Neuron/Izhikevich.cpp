@@ -4,14 +4,20 @@
 
 using namespace std;
 
-Izhikevich::Izhikevich() : param(new Izhikevich_param) {
+Izhikevich::Izhikevich(long n_populationID, int n_neuronID) : param(new Izhikevich_param) {
+    populationID = n_populationID;
+    neuronID = n_neuronID;
     v = param->c;
     u = 0.0;
+    initialize();
 }
 
-Izhikevich::Izhikevich(Izhikevich_param* param) : param(param) {
+Izhikevich::Izhikevich(long n_populationID, int n_neuronID, Izhikevich_param* param) : param(param) {
+    populationID = n_populationID;
+    neuronID = n_neuronID;
     v = param->c;
     u = 0.0;
+    initialize();
 }
 
 Event* Izhikevich::update(double n_dt) {
@@ -24,6 +30,8 @@ Event* Izhikevich::update(double n_dt) {
     u += du * dt;
 
     v = ( v < -std::numeric_limits< double >::max() ? -std::numeric_limits< double >::max() : v );
+
+    logger->logValue(populationID, neuronID, ValueType::voltage, v);
 
     if(v > param->v_thres) {
         v = param->c;

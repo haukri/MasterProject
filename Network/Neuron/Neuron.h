@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Network/utils/Event.h"
+#include "Network/utils/Logging.h"
 
 class Neuron
 {
@@ -17,6 +18,12 @@ public:
     virtual void resetInput() {
         throw "resetInput not implemented!";
     }
+    void initialize() {
+        logger = Logging::getInstance();
+    }
+    long populationID;
+    int neuronID;
+    Logging* logger;
 private:
 };
 

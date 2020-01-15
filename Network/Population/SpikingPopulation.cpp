@@ -17,7 +17,7 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName) {
     }
     else if(modelName == "izhikevich") {
         for(int i = 0; i < amount; i++) {
-            neurons.push_back(new Izhikevich());
+            neurons.push_back(new Izhikevich((long)this, i));
         }
     }
     else if(modelName == "CurrentGenerator") {
@@ -37,7 +37,7 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* p
     }
     else if(modelName == "izhikevich") {
         for(int i = 0; i < amount; i++) {
-            neurons.push_back(new Izhikevich(static_cast<Izhikevich_param*>(param)));
+            neurons.push_back(new Izhikevich((long)this, i, static_cast<Izhikevich_param*>(param)));
         }
     }
     else if(modelName == "CurrentGenerator") {
@@ -55,6 +55,7 @@ void SpikingPopulation::update() {
         resetOutput();
         for(int i = 0; i < numberOfNeurons; i++) {
             output[i] = neurons[i]->update(clock->getDt());
+            logger->logEvent((long)this, i, output[i]->type);
             neurons[i]->resetInput();
         }
         current_time += clock->getDt();

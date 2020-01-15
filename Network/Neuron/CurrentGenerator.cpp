@@ -4,9 +4,13 @@
 
 using namespace std;
 
-CurrentGenerator::CurrentGenerator() : param(new CurrentGenerator_param) { }
+CurrentGenerator::CurrentGenerator() : param(new CurrentGenerator_param) { 
+    initialize();
+}
 
-CurrentGenerator::CurrentGenerator(CurrentGenerator_param* param) : param(param) { }
+CurrentGenerator::CurrentGenerator(CurrentGenerator_param* param) : param(param) { 
+    initialize();
+}
 
 Event* CurrentGenerator::update(double n_dt) {
     return new CurrentEvent(param->I, 1.0);

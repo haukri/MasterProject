@@ -11,7 +11,7 @@ using namespace std;
 int main() 
 {
     Izhikevich_param* p = new Izhikevich_param();
-    Izhikevich n = Izhikevich(p);
+    Izhikevich n = Izhikevich(0, 0, p);
     Event* e = new NoEvent();
 
     for(int i = 0; i < 1300; i++) {
@@ -21,12 +21,13 @@ int main()
             static_cast<SpikeEvent*>(e)->weight = 1.0;
         }
         else if(i == 800) {
-            Event* e = new NoEvent();
+            e = new NoEvent();
         }
 
         n.handleEvent(e);
         n.update(0.3);
         cout << n.getMembranePotential() << endl;
+        n.resetInput();
     }
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "Network/utils/Parameters.h"
 #include "Network/utils/Clock.h"
 #include <vector>
+#include "Network/utils/Logging.h"
 
 struct Network_param {
     double dt = 0.01;
@@ -27,4 +28,5 @@ private:
     Network_param* param;
     std::vector<Population*> populations;
     Clock* clock;
+    Logging* logger;
 };

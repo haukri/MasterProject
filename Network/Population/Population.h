@@ -6,6 +6,7 @@
 #include "Network/utils/Clock.h"
 #include <string>
 #include "Network/Neuron/Neuron.h"
+#include "Network/utils/Logging.h"
 
 class Population
 {
@@ -25,6 +26,7 @@ public:
     void initialize() {
         output = std::vector<Event*>(numberOfNeurons, NULL);
         clock = Clock::getInstance();
+        logger = Logging::getInstance();
     }
 
     void resetOutput() {
@@ -49,6 +51,7 @@ public:
     std::vector<Neuron*> neurons;
     double current_time;
     Clock* clock;
+    Logging* logger;
 private:
 
 };

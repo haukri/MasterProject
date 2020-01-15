@@ -16,8 +16,8 @@ struct Izhikevich_param : Parameters {
 class Izhikevich : public Neuron
 {
 public:
-    Izhikevich();
-    Izhikevich(Izhikevich_param*);
+    Izhikevich(long populationID, int neuronID);
+    Izhikevich(long populationID, int neuronID, Izhikevich_param*);
     Event* update(double);
     void handleEvent(Event*);
     double getMembranePotential();
