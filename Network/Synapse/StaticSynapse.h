@@ -8,7 +8,7 @@
 #include <vector>
 
 struct StaticSynapse_param : Parameters {
-    double connection_probability;
+    double connection_probability = 0.2;
 };
 
 class StaticSynapse : public Synapse
@@ -16,6 +16,7 @@ class StaticSynapse : public Synapse
 public:
     StaticSynapse(Population* n_from, Population* n_to);
     StaticSynapse(Population* n_from, Population* n_to, StaticSynapse_param*);
+    void initialize(Population* n_from, Population* n_to);
     void update();
 private:
     StaticSynapse_param* param;

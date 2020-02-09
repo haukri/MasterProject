@@ -20,5 +20,4 @@ void CurrentGenerator::resetInput() { }
 
 void CurrentGenerator::handleEvent(Event* e) { }
 
-CurrentGenerator::~CurrentGenerator() { 
-}
+CurrentGenerator::~CurrentGenerator() { }

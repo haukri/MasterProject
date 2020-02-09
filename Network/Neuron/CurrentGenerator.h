@@ -6,7 +6,7 @@
 #include "Network/utils/Parameters.h"
 
 struct CurrentGenerator_param : Parameters {
-    double I = 100.0;
+    double I = 10.0;
 };
 
 class CurrentGenerator : public Neuron

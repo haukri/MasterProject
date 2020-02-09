@@ -22,6 +22,10 @@ void ANN::setLearningRate(double nlearning_rate) {
     learning_rate = nlearning_rate;
 }
 
+int ANN::getInputSize() {
+    return inputSize;
+}
+
 void ANN::fit(Eigen::MatrixXd X, Eigen::MatrixXd y) {
     // Calculate feed forward for X
     Eigen::MatrixXd predicted = predict(X);

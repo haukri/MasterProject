@@ -17,6 +17,8 @@ public:
     void setInputSize(int size);
     void setLearningRate(double learning_rate);
 
+    int getInputSize();
+
     void fit(Eigen::MatrixXd X, Eigen::MatrixXd y);
     Eigen::MatrixXd predict(Eigen::MatrixXd input);
 

@@ -11,5 +11,6 @@ public:
     virtual void update() {
         std::cout << "update in synapse not implemented!" << std::endl;
     };
+    virtual ~Synapse() {};
 private:
 };

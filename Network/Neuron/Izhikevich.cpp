@@ -33,6 +33,8 @@ Event* Izhikevich::update(double n_dt) {
 
     logger->logValue(populationID, neuronID, ValueType::voltage, v);
 
+    resetInput();
+
     if(v > param->v_thres) {
         v = param->c;
         u += param->d;

@@ -21,6 +21,7 @@ public:
     void initialize() {
         logger = Logging::getInstance();
     }
+    virtual ~Neuron() {};
     long populationID;
     int neuronID;
     Logging* logger;

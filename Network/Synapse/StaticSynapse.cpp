@@ -6,19 +6,19 @@ using namespace std;
 StaticSynapse::StaticSynapse(Population* n_from, Population* n_to) : 
     param(new StaticSynapse_param)
 {
-    inputSize = n_from->getNumberOfNeurons();
-    outputSize = n_to->getNumberOfNeurons();
-    weights = Eigen::MatrixXd::Constant(inputSize, outputSize, 1.0);
-    from_population = n_from;
-    to_population = n_to;
+    initialize(n_from, n_to);
 }
 
 StaticSynapse::StaticSynapse(Population* n_from, Population* n_to, StaticSynapse_param* param) : 
     param(param)
 {
+    initialize(n_from, n_to);
+}
+
+void StaticSynapse::initialize(Population* n_from, Population* n_to) {
     inputSize = n_from->getNumberOfNeurons();
     outputSize = n_to->getNumberOfNeurons();
-    weights = Eigen::MatrixXd::Constant(inputSize, outputSize, 1.0);
+    weights = Eigen::MatrixXd::Random(inputSize, outputSize);
     from_population = n_from;
     to_population = n_to;
 }

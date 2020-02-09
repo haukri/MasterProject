@@ -1,10 +1,11 @@
 #pragma once
 
-enum EventType { Spike, Current, No };
+enum EventType { Spike, Current, No, Value };
 
 struct Event {
     EventType type = EventType::No;
     virtual void setWeight(double w) {}
+    virtual ~Event() {};
 };
 
 struct SpikeEvent : Event {
@@ -21,6 +22,7 @@ struct SpikeEvent : Event {
     }
     int multiplicity = 0;
     double weight = 0.0;
+    ~SpikeEvent() {};
 };
 
 struct CurrentEvent : Event {
@@ -37,10 +39,28 @@ struct CurrentEvent : Event {
     }
     double current = 0.0;
     double weight = 0.0;
+    ~CurrentEvent() {};
 };
 
 struct NoEvent : Event {
     NoEvent() {
        type = EventType::No;
     }
+    ~NoEvent() {};
+};
+
+struct ValueEvent : Event {
+    ValueEvent() {
+        type = EventType::Value;
+    }
+    ValueEvent(double n_value) {
+        type = EventType::Value;
+        value = n_value;
+    }
+    void setWeight(double w) {}
+    void setValue(double v) {
+        value = v;
+    }
+    double value = 0.0;
+    ~ValueEvent() {};
 };

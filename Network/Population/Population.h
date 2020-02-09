@@ -38,7 +38,7 @@ public:
         }
     }
 
-    void setInput(int neuronIndex, Event* e) {
+    virtual void setInput(int neuronIndex, Event* e) {
         if(neuronIndex < 0 || neuronIndex >= neurons.size()) {
             throw "Index of input neuron out of range!";
         }
@@ -46,12 +46,15 @@ public:
 
     }
 
+    virtual ~Population() {};
+
     std::vector<Event*> output;
     int numberOfNeurons;
     std::vector<Neuron*> neurons;
     double current_time;
     Clock* clock;
     Logging* logger;
+
 private:
 
 };
