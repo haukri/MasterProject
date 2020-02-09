@@ -9,8 +9,8 @@
 class ArtificialPopulation : public Population
 {
 public:
-    ArtificialPopulation(ANN*);
-    ArtificialPopulation(ANN*, Parameters*);
+    ArtificialPopulation(ANN* a);
+    ArtificialPopulation(ANN* a, Parameters*);
     void update();
     void setInput(int, Event*);
 

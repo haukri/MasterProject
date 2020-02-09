@@ -40,6 +40,7 @@ public:
 
     virtual void setInput(int neuronIndex, Event* e) {
         if(neuronIndex < 0 || neuronIndex >= neurons.size()) {
+            std::cout << "Index of input neuron out of range!" << std::endl;
             throw "Index of input neuron out of range!";
         }
         neurons[neuronIndex]->handleEvent(e);

@@ -5,12 +5,20 @@
 #include "Network/Synapse/RateCodingSynapse.h"
 #include "Network/Network.h"
 #include "Network/Neuron/Izhikevich.h"
+#include "Network/ANN/ANN.h"
+#include "Network/Population/ArtificialPopulation.h"
 
 using namespace std;
 
 int main() 
 {
     srand(time(NULL));
+
+    ANN* ann = new ANN();
+    ann->setInputSize(10);
+    ann->addLayer(10, "tanh");
+
+    ann->getInputSize();
 
     // Populations
 
@@ -20,7 +28,7 @@ int main()
 
     SpikingPopulation* c1 = new SpikingPopulation(10, "CurrentGenerator");
 
-    SpikingPopulation* p2 = new SpikingPopulation(10, "izhikevich");
+    ArtificialPopulation* p2 = new ArtificialPopulation(ann);
     
 
     // Synapses

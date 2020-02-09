@@ -19,6 +19,7 @@ void RateCodingSynapse::initialize(Population* n_from, Population* n_to) {
     inputSize = n_from->getNumberOfNeurons();
     outputSize = n_to->getNumberOfNeurons();
     if(inputSize != outputSize) {
+        cout << "Number of input neurons not equal to number of output neurons" << endl;
         throw "Number of input neurons not equal to number of output neurons";
     }
     from_population = n_from;

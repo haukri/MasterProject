@@ -1,0 +1,2 @@
+RateCodingSynapse gives error when ArtificialPopulation has not as many input neurons as output neurons
+    probably have to refactor population to be able to have different number of input and output neurons

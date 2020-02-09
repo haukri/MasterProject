@@ -5,12 +5,14 @@
 using namespace std;
 
 ArtificialPopulation::ArtificialPopulation(ANN* a) {
+    numberOfNeurons = a->getInputSize();
     initialize();
     ann = a;
     annInput = Eigen::MatrixXd(1, ann->getInputSize());
 }
 
 ArtificialPopulation::ArtificialPopulation(ANN* a,  Parameters* param) {
+    numberOfNeurons = a->getInputSize();
     initialize();
     ann = a;
     annInput = Eigen::MatrixXd(1, ann->getInputSize());
@@ -26,6 +28,7 @@ void ArtificialPopulation::update() {
         annOutput = ann->predict(annInput);
         for(int i = 0; i < numberOfNeurons; i++) {
             output[i] = new ValueEvent(annOutput(0, i));
+            logger->logValue(1234, i, EventType::Value, annOutput(0, i));
         }
         current_time += clock->getDt();
     }
