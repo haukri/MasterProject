@@ -47,6 +47,7 @@ void RateCodingSynapse::update() {
             value += 1;
         }
         static_cast<ValueEvent*>(output[i])->setValue(value);
+        to_population->setInput(i, output[i]);
         logger->logValue(1, i, EventType::Value, value);
     }
 }

@@ -10,21 +10,24 @@
 #include "Network/utils/Clock.h"
 #include "Network/utils/Logging.h"
 
-struct RateCodingSynapse_param : Parameters {
-    // Time window in seconds
-    double time_window = 1;
+struct BSA_SpikeEncodingSynapse_param : Parameters {
+    double filter_length = 12;   // Time window in seconds
+    double threshold = 0.9550;
 };
 
-class RateCodingSynapse : public Synapse
+class BSA_SpikeEncodingSynapse : public Synapse
 {
 public:
-    RateCodingSynapse(Population* n_from, Population* n_to);
-    RateCodingSynapse(Population* n_from, Population* n_to, RateCodingSynapse_param*);
+    BSA_SpikeEncodingSynapse(Population* n_from, Population* n_to);
+    BSA_SpikeEncodingSynapse(Population* n_from, Population* n_to, BSA_SpikeEncodingSynapse_param*);
     void initialize(Population* n_from, Population* n_to);
+    void resetOutput();
     void update();
 private:
-    RateCodingSynapse_param* param;
+    BSA_SpikeEncodingSynapse_param* param;
     std::vector<std::deque<double>> spikes;
+    std::vector<double> filter;
+    std::vector<std::deque<double>> input;
     Clock* clock;
     std::vector<Event*> output;
     int inputSize, outputSize;

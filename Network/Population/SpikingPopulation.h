@@ -11,7 +11,7 @@ public:
     SpikingPopulation(int, std::string);
     SpikingPopulation(int, std::string, Parameters*);
     void update();
-    virtual ~SpikingPopulation() {};
+    ~SpikingPopulation() {};
 private:
 
 };

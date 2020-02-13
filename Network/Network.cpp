@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Network.h"
+#include <chrono> 
 
 
 using namespace std;
@@ -35,12 +36,17 @@ bool Network::networkContainsPopulation(Population* p1) {
 };
 
 void Network::run(double runtime) {
-    cout << "Running network for " << runtime << " milliseconds" << endl;
+    cout << "Running network for " << runtime << " seconds" << endl;
+    auto start = std::chrono::high_resolution_clock::now(); 
     clock->setDt(param->dt);
     while(clock->getCurrentTime() < runtime) {
         clock->tick(param->dt);
         update();
     }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start); 
+    cout << "Execution time: " << duration.count()/1000.0 << " milliseconds" << endl; 
+    
     logger->saveLog();
 };
 

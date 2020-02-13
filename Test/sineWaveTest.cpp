@@ -7,34 +7,34 @@
 #include "Network/Neuron/Izhikevich.h"
 #include "Network/ANN/ANN.h"
 #include "Network/Population/ArtificialPopulation.h"
+#include "Network/Synapse/BSA_SpikeEncodingSynapse.h"
 
 using namespace std;
 
-int run() {
+int main() 
+{
     srand(time(NULL));
 
     ANN* ann = new ANN();
-    ann->setInputSize(10);
-    ann->addLayer(10, "tanh");
-
-    ann->getInputSize();
+    ann->setInputSize(1);
+    ann->addLayer(1, "tanh");
 
     // Populations
-
-    Izhikevich_param* p1_param = new Izhikevich_param();
-    p1_param->v_thres = 40;
-    SpikingPopulation* p1 = new SpikingPopulation(10, "izhikevich", p1_param);
-
-    SpikingPopulation* c1 = new SpikingPopulation(10, "CurrentGenerator");
+    SignalGenerator_param* paramp1 = new SignalGenerator_param();
+    paramp1->f = 0.1;
+    Population* p1 = new Population(1, "SignalGenerator", paramp1);
 
     ArtificialPopulation* p2 = new ArtificialPopulation(ann);
-    
+
+    Population* p3 = new Population(1, "izhikevich");
+    cout << (long)p3 << endl;
 
     // Synapses
+    BSA_SpikeEncodingSynapse_param* params1 = new BSA_SpikeEncodingSynapse_param();
+    params1->threshold = 0.2;
+    BSA_SpikeEncodingSynapse* s1 = new BSA_SpikeEncodingSynapse(p1, p3, params1);
 
-    StaticSynapse* s1 = new StaticSynapse(c1, p1);
-
-    RateCodingSynapse* s2 = new RateCodingSynapse(p1, p2);
+    RateCodingSynapse* s2 = new RateCodingSynapse(p3, p2);
 
 
     // Create the network
@@ -51,14 +51,4 @@ int run() {
     n.run(100.0);
     
     return 0;
-}
-
-int main() 
-{
-    try {
-        return run();
-    }
-    catch (int param) { cout << "int exception"; }
-    catch (char param) { cout << "char exception"; }
-    catch (...) { cout << "default exception"; }
 }

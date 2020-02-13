@@ -7,14 +7,83 @@
 #include <string>
 #include "Network/Neuron/Neuron.h"
 #include "Network/utils/Logging.h"
+#include "Network/Neuron/CurrentGenerator.h"
+#include "Network/Neuron/Izhikevich.h"
+#include "Network/Neuron/LIF.h"
+#include "Network/Neuron/SignalGenerator.h"
+#include <string>
 
 class Population
 {
 public:
-    virtual void update()
-    {
-        std::cout << "Update not implemented!" << std::endl;
+
+    Population() {};
+
+    Population(int amount, std::string modelName) {
+        numberOfNeurons = amount;
+        initialize();
+        if(modelName == "iaf") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new LIF());
+            }
+        }
+        else if(modelName == "izhikevich") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new Izhikevich((long)this, i));
+            }
+        }
+        else if(modelName == "CurrentGenerator") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new CurrentGenerator());
+            }
+        }
+        else if(modelName == "SignalGenerator") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new SignalGenerator());
+            }
+        }
     }
+
+    Population(int amount, std::string modelName, Parameters* param) {
+        numberOfNeurons = amount;
+        initialize();
+        if(modelName == "iaf") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new LIF(static_cast<LIF_param*>(param)));
+            }
+        }
+        else if(modelName == "izhikevich") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new Izhikevich((long)this, i, static_cast<Izhikevich_param*>(param)));
+            }
+        }
+        else if(modelName == "CurrentGenerator") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new CurrentGenerator(static_cast<CurrentGenerator_param*>(param)));
+            }
+        }
+        else if(modelName == "SignalGenerator") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new SignalGenerator(static_cast<SignalGenerator_param*>(param)));
+            }
+        }
+        else {
+            // TODOS throw exception
+        }
+    }
+
+    virtual void update() {
+        while(current_time < clock->getCurrentTime()) {
+            resetOutput();
+            for(int i = 0; i < numberOfNeurons; i++) {
+                output[i] = neurons[i]->update(clock->getDt());
+                logger->logEvent((long)this, i, output[i]->type);
+                neurons[i]->resetInput();
+            }
+            current_time += clock->getDt();
+        }
+    }
+
     virtual int getNumberOfNeurons() {
         return numberOfNeurons;
     }

@@ -1,2 +1,7 @@
 RateCodingSynapse gives error when ArtificialPopulation has not as many input neurons as output neurons
     probably have to refactor population to be able to have different number of input and output neurons
+
+BSA_SpikeEncodingSynapse
+    Create right fir filter, get inspiration from firwin in python
+    https://www.researchgate.net/post/Has_anyone_implemented_Bens_Spiker_Algorithm
+

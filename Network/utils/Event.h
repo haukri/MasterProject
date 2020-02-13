@@ -20,8 +20,8 @@ struct SpikeEvent : Event {
     void setWeight(double w) {
         weight = w;
     }
-    int multiplicity = 0;
-    double weight = 0.0;
+    int multiplicity = 1;
+    double weight = 1.0;
     ~SpikeEvent() {};
 };
 
