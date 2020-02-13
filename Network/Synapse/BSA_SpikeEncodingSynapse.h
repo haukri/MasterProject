@@ -11,7 +11,7 @@
 #include "Network/utils/Logging.h"
 
 struct BSA_SpikeEncodingSynapse_param : Parameters {
-    double filter_length = 12;   // Time window in seconds
+    double filter_length = 24;   // Time window in seconds
     double threshold = 0.9550;
 };
 

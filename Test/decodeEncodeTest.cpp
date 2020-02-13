@@ -26,12 +26,12 @@ int main()
 
     ArtificialPopulation* p2 = new ArtificialPopulation(ann);
 
-    Population* p3 = new Population(1, "PassThrough");
+    Population* p3 = new Population(1, "izhikevich");
     cout << (long)p3 << endl;
 
     // Synapses
     BSA_SpikeEncodingSynapse_param* params1 = new BSA_SpikeEncodingSynapse_param();
-    params1->threshold = 0.955;
+    params1->threshold = 0.5;
     BSA_SpikeEncodingSynapse* s1 = new BSA_SpikeEncodingSynapse(p1, p3, params1);
 
     RateCodingSynapse* s2 = new RateCodingSynapse(p3, p2);

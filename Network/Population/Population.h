@@ -11,6 +11,7 @@
 #include "Network/Neuron/Izhikevich.h"
 #include "Network/Neuron/LIF.h"
 #include "Network/Neuron/SignalGenerator.h"
+#include "Network/Neuron/PassThrough.h"
 #include <string>
 
 class Population
@@ -42,6 +43,11 @@ public:
                 neurons.push_back(new SignalGenerator());
             }
         }
+        else if(modelName == "PassThrough") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new PassThrough());
+            }
+        }
     }
 
     Population(int amount, std::string modelName, Parameters* param) {
@@ -65,6 +71,11 @@ public:
         else if(modelName == "SignalGenerator") {
             for(int i = 0; i < amount; i++) {
                 neurons.push_back(new SignalGenerator(static_cast<SignalGenerator_param*>(param)));
+            }
+        }
+        else if(modelName == "PassThrough") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new PassThrough(static_cast<PassThrough_param*>(param)));
             }
         }
         else {
