@@ -19,6 +19,9 @@ public:
     Eigen::MatrixXd backward(Eigen::MatrixXd grad_output);
     Eigen::MatrixXd getActivation();
 
+    void setWeights(Eigen::MatrixXd);
+    void setBiases(Eigen::MatrixXd);
+
     ~Dense();
 
 private:

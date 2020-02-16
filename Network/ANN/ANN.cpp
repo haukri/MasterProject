@@ -45,6 +45,10 @@ Eigen::MatrixXd ANN::predict(Eigen::MatrixXd input) {
     return input;
 }
 
+Layer* ANN::getLayer(int index) {
+    return layers[index];
+}
+
 ANN::~ANN()
 {
     

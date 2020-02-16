@@ -56,6 +56,14 @@ Eigen::MatrixXd Dense::getActivation() {
     return activation;
 }
 
+void Dense::setWeights(Eigen::MatrixXd n_weights) {
+    weigths = n_weights;
+}
+
+void Dense::setBiases(Eigen::MatrixXd n_biases) {
+    biases = n_biases;
+}
+
 Dense::~Dense() {
     cout << "Object deconstructed!" << endl;
 }

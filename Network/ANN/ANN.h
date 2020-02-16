@@ -22,6 +22,8 @@ public:
     void fit(Eigen::MatrixXd X, Eigen::MatrixXd y);
     Eigen::MatrixXd predict(Eigen::MatrixXd input);
 
+    Layer* getLayer(int);
+
     ~ANN();
 
 private:

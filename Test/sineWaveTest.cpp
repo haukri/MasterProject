@@ -19,6 +19,13 @@ int main()
     ann->setInputSize(1);
     ann->addLayer(1, "tanh");
 
+    Eigen::MatrixXd w = Eigen::MatrixXd(1, 1);
+    w(0,0) = 0.05;
+    Eigen::MatrixXd b = Eigen::MatrixXd(1, 1);
+    b(0,0) = 0.0;
+    static_cast<Dense*>(ann->getLayer(0))->setWeights(w);
+    static_cast<Dense*>(ann->getLayer(0))->setBiases(b);
+
     // Populations
     SignalGenerator_param* paramp1 = new SignalGenerator_param();
     paramp1->f = 0.1;
