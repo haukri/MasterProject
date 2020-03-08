@@ -18,6 +18,7 @@ public:
     StaticSynapse(Population* n_from, Population* n_to, StaticSynapse_param*);
     void initialize(Population* n_from, Population* n_to);
     void update();
+    void setWeight(int from_neurons, int to_neuron, double weight);
 private:
     StaticSynapse_param* param;
     Eigen::MatrixXd weights;

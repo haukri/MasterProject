@@ -31,3 +31,7 @@ void StaticSynapse::update() {
         }
     }
 }
+
+void StaticSynapse::setWeight(int from_neuron, int to_neuron, double n_weight) {
+    weights(from_neuron, to_neuron) = n_weight;
+}
