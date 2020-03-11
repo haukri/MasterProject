@@ -41,13 +41,13 @@ int main()
     TemporalPhaseEncodingSynapse_param* params1 = new TemporalPhaseEncodingSynapse_param();
     params1->window_length_s = 0.1;
     params1->som_frequency = 800;
-    // params1->som_phase = -M_PI / 2;
+    // params1->som_phase = M_PI / 2.0;
     TemporalPhaseEncodingSynapse* s1 = new TemporalPhaseEncodingSynapse(p1, p3, params1);
 
     TemporalPhaseDecodingSynapse_param* params2 = new TemporalPhaseDecodingSynapse_param();
     params2->window_length_s = 0.1;
     params2->som_frequency = 800;
-    // params2->som_phase = M_PI / 2;
+    // params2->som_phase = M_PI / 2.0;
     TemporalPhaseDecodingSynapse* s2 = new TemporalPhaseDecodingSynapse(p3, p2, params2);
 
     // Create the network

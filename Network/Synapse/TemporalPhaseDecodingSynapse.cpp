@@ -32,7 +32,7 @@ void TemporalPhaseDecodingSynapse::initialize(Population* n_from, Population* n_
     spikeTimes.setConstant(-1);
     currentWindow = param->window_length_s;
     phaseStep = param->window_length_s / param->som_frequency;
-    phaseOffset = (param->som_phase * 1000.0) / (2 * M_PI * param->som_frequency);
+    phaseOffset = (param->som_phase * 1.0) / (2 * M_PI * param->som_frequency);
     for(int i = 0; i < inputSize; i++) {
         output.push_back(new NoEvent());
     }
@@ -59,6 +59,7 @@ void TemporalPhaseDecodingSynapse::update() {
                 double s0 = from_population->output[i]->eventTime - currentWindow - phaseOffset;
                 s0 = round(s0/param->window_length_s*param->som_frequency);
                 spikeTimes(j) = s0 * 1 / (param->som_frequency);
+                spikeTimes(j) = (spikeTimes(j) - 0.1) * 1.25;
 
                 static_cast<ValueEvent*>(output[i])->setValue(spikeTimes(j));
                 logger->logValue(321, i, EventType::Value, spikeTimes(j));

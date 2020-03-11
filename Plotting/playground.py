@@ -41,8 +41,8 @@ plotSpikeOutputs('94133057422064', '0')
 # plotValueOutputs('94261706957552', '0', '0')
 
 for i in range(1000):
-    plt.axvline(x=0.1*i, color='r', linewidth=0.5)
-
+    # plt.axvline(x=0.1*i, color='r', linewidth=0.5)
+    pass
 
 t = signal.firwin(24, 5, fs=100)
 # plt.plot(t)
