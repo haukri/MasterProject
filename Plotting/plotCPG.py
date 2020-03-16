@@ -31,14 +31,10 @@ def plotSpikeOutputs(populationID, neuronID):
     plt.eventplot(x, lineoffsets=int(neuronID), linelengths=0.7)
     # plt.scatter(x, y)
 
-plotValueOutputs('999', '0', '3', 'signal input')
-# plotValueOutputs('1', '0', '3')
-plotValueOutputs('321', '0', '3', 'decode output')
-plotValueOutputs('1234', '0', '3', 'ann output')
-# plotSpikeOutputs('5678', '0')
+plotSpikeOutputs('94031229251824', '0')
 
-plotSpikeOutputs('93876079284464', '0')
-# plotValueOutputs('94261706957552', '0', '0')
+plotValueOutputs('94749646392992', '0', '0', 'Neuron 1')
+plotValueOutputs('94749646393584', '0', '0', 'Neuron 2')
 
 for i in range(1000):
     # plt.axvline(x=0.1*i, color='r', linewidth=0.5)

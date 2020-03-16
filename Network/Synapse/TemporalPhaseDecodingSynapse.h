@@ -10,7 +10,7 @@
 #include "Network/utils/Logging.h"
 
 struct TemporalPhaseDecodingSynapse_param : Parameters {
-    double som_frequency = 40;
+    int som_frequency = 40;
     double som_phase = 0;
     double window_length_s = 0.5;
 };

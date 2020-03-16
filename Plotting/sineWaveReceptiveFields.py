@@ -37,7 +37,9 @@ plotValueOutputs('321', '0', '3', 'decode output')
 plotValueOutputs('1234', '0', '3', 'ann output')
 # plotSpikeOutputs('5678', '0')
 
-plotSpikeOutputs('93876079284464', '0')
+
+for i in range(10):
+    plotSpikeOutputs('94144033850096', str(i))
 # plotValueOutputs('94261706957552', '0', '0')
 
 for i in range(1000):

@@ -9,26 +9,29 @@
 #include "Network/utils/Clock.h"
 #include "Network/utils/Logging.h"
 
-struct TemporalPhaseEncodingSynapse_param : Parameters {
-    int som_frequency = 40;
-    double som_phase = 0;
+struct ReceptiveFieldEncodingSynapse_param : Parameters {
     double window_length_s = 0.5;
+    int number_of_neurons = 10;
+    double beta = 1.5;
+    double input_min = 0.0;
+    double input_max = 1.0;
 };
 
-class TemporalPhaseEncodingSynapse : public Synapse
+class ReceptiveFieldEncodingSynapse : public Synapse
 {
 public:
-    TemporalPhaseEncodingSynapse(Population* n_from, Population* n_to);
-    TemporalPhaseEncodingSynapse(Population* n_from, Population* n_to, TemporalPhaseEncodingSynapse_param*);
+    ReceptiveFieldEncodingSynapse(Population* n_from, Population* n_to);
+    ReceptiveFieldEncodingSynapse(Population* n_from, Population* n_to, ReceptiveFieldEncodingSynapse_param*);
+    double gaussian(int index, double value);
     void initialize(Population* n_from, Population* n_to);
     void resetOutput();
     void update();
 private:
-    TemporalPhaseEncodingSynapse_param* param;
+    ReceptiveFieldEncodingSynapse_param* param;
     Eigen::VectorXd spikeTimes;
     int inputSize, outputSize;
     double currentWindow;
-    double phaseStep, phaseOffset;
+    double gaussianMax;
     Clock* clock;
     Logging* logger;
     std::vector<Event*> output;
