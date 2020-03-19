@@ -13,7 +13,7 @@ using namespace std;
 class Dense : public Layer
 {
 public:
-    Dense(int input_size, int output_size, double learning_rate, string type);
+    Dense(int input_size, int output_size, double* learning_rate, string type);
 
     Eigen::MatrixXd forward(Eigen::MatrixXd input);
     Eigen::MatrixXd backward(Eigen::MatrixXd grad_output);
@@ -29,7 +29,7 @@ private:
     Eigen::MatrixXd biases;
     Eigen::MatrixXd activation;
     Eigen::MatrixXd last_input;
-    double learning_rate;
+    double* learning_rate;
     string type;
 };
 

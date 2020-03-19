@@ -39,7 +39,7 @@ plotValueOutputs('1234', '0', '3', 'ann output')
 
 
 for i in range(10):
-    plotSpikeOutputs('94144033850096', str(i))
+    plotSpikeOutputs('94301517361904', str(i))
 # plotValueOutputs('94261706957552', '0', '0')
 
 for i in range(1000):

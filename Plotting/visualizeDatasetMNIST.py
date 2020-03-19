@@ -22,8 +22,6 @@ image_y = list(range(20))*20
 
 image = list(zip(image_x, image_x_index, image_y))
 
-# print(list(image))
-
 image_x = [x[2] for x in image if x[0] == 1]
 image_y = [x[1] for x in image if x[0] == 1]
 

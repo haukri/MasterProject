@@ -2,7 +2,7 @@
 #include <random>
 #include <chrono>
 
-Dense::Dense(int input_size, int output_size, double nlearning_rate, string ntype) {
+Dense::Dense(int input_size, int output_size, double* nlearning_rate, string ntype) {
     weigths = Eigen::MatrixXd(input_size, output_size);
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator (seed);
@@ -44,10 +44,10 @@ Eigen::MatrixXd Dense::backward(Eigen::MatrixXd grad_output) {
     Eigen::MatrixXd grad_input = weigths * delta;
 
     Eigen::MatrixXd delta_weights = last_input.transpose() * delta.transpose();
-    weigths = weigths + delta_weights * learning_rate;
+    weigths = weigths + delta_weights * *learning_rate;
 
     Eigen::MatrixXd delta_biases = delta.rowwise().mean() * last_input.rows();
-    biases = biases + delta_biases.transpose() * learning_rate;
+    biases = biases + delta_biases.transpose() * *learning_rate;
 
     return grad_input;
 }

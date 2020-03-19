@@ -10,7 +10,7 @@ ANN::ANN()
 }
 
 void ANN::addLayer(int size, string type) {
-    layers.push_back(new Dense(inputSize, size, learning_rate, type));
+    layers.push_back(new Dense(inputSize, size, &learning_rate, type));
     inputSize = size;
 }
 
