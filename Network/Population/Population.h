@@ -12,6 +12,7 @@
 #include "Network/Neuron/LIF.h"
 #include "Network/Neuron/SignalGenerator.h"
 #include "Network/Neuron/PassThrough.h"
+#include "Network/Neuron/iaf_psc_alpha.h"
 #include <string>
 
 class Population
@@ -48,6 +49,11 @@ public:
                 neurons.push_back(new PassThrough());
             }
         }
+        else if(modelName == "iaf_psc_alpha") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new iaf_psc_alpha((long)this, i));
+            }
+        }
     }
 
     Population(int amount, std::string modelName, Parameters* param) {
@@ -76,6 +82,11 @@ public:
         else if(modelName == "PassThrough") {
             for(int i = 0; i < amount; i++) {
                 neurons.push_back(new PassThrough(static_cast<PassThrough_param*>(param)));
+            }
+        }
+        else if(modelName == "iaf_psc_alpha") {
+            for(int i = 0; i < amount; i++) {
+                neurons.push_back(new iaf_psc_alpha((long)this, i, static_cast<iaf_psc_alpha_param*>(param)));
             }
         }
         else {

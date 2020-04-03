@@ -18,7 +18,7 @@ StaticSynapse::StaticSynapse(Population* n_from, Population* n_to, StaticSynapse
 void StaticSynapse::initialize(Population* n_from, Population* n_to) {
     inputSize = n_from->getNumberOfNeurons();
     outputSize = n_to->getNumberOfNeurons();
-    weights = Eigen::MatrixXd::Random(inputSize, outputSize);
+    weights = Eigen::MatrixXd::Zero(inputSize, outputSize);
     from_population = n_from;
     to_population = n_to;
 }

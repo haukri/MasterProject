@@ -6,7 +6,7 @@ plotname = 'logic_or_ann'
 # ------------- Plot Setup ------------- #
 plt.ylim(0, 3)
 plt.xlim(0, 2000)
-plt.title('ANN Training on XOR Gate', fontsize='large', fontweight='bold')
+plt.title('ANN Training on OR Gate', fontsize='large', fontweight='bold')
 plt.xlabel('Trained batches', fontsize='large', fontweight='bold')
 plt.ylabel('Mean Square Error', fontsize='large', fontweight='bold')
 plt.grid()

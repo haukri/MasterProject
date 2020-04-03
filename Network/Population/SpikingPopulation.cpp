@@ -7,7 +7,7 @@
 
 using namespace std;
 
-SpikingPopulation::SpikingPopulation(int amount, string modelName) {
+/*SpikingPopulation::SpikingPopulation(int amount, string modelName) {
     numberOfNeurons = amount;
     initialize();
     if(modelName == "iaf") {
@@ -48,7 +48,7 @@ SpikingPopulation::SpikingPopulation(int amount, string modelName, Parameters* p
     else {
         // TODOS throw exception
     }
-}
+}*/
 
 void SpikingPopulation::update() {
     while(current_time < clock->getCurrentTime()) {

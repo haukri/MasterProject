@@ -8,8 +8,8 @@
 class SpikingPopulation : public Population
 {
 public:
-    SpikingPopulation(int, std::string);
-    SpikingPopulation(int, std::string, Parameters*);
+    SpikingPopulation(int amount, std::string type) : Population(amount, type) { };
+    SpikingPopulation(int amount, std::string type, Parameters* param) : Population(amount, type, param) {};
     void update();
     ~SpikingPopulation() {};
 private:
