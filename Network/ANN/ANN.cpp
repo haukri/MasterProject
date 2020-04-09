@@ -10,8 +10,8 @@ ANN::ANN()
 }
 
 void ANN::addLayer(int size, string type) {
+    outputSize = size;
     layers.push_back(new Dense(inputSize, size, &learning_rate, type));
-    inputSize = size;
 }
 
 void ANN::setInputSize(int size) {
@@ -24,6 +24,10 @@ void ANN::setLearningRate(double nlearning_rate) {
 
 int ANN::getInputSize() {
     return inputSize;
+}
+
+int ANN::getOutputSize() {
+    return outputSize;
 }
 
 void ANN::fit(Eigen::MatrixXd X, Eigen::MatrixXd y) {

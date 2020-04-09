@@ -29,4 +29,5 @@ private:
     std::vector<Event*> output;
     int inputSize, outputSize;
     Logging* logger;
+    bool singleOutput = false;
 };

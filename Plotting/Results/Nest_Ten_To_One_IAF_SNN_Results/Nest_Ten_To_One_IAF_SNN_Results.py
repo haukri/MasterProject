@@ -13,7 +13,7 @@ axs[0].set_ylim(-80, -54)
 axs[0].set_xlim(0, 1.0)
 axs[1].set_ylim(-0.00008, 0.00008)
 axs[0].set_title('Leaky integrate-and-fire neuron (iaf_psc_alpha)', fontsize='large', fontweight='bold')
-axs[1].set_title('Error between Nest simulation and TinySpike', fontsize='large', fontweight='bold')
+axs[1].set_title('Error between Nest simulation and TinyNN', fontsize='large', fontweight='bold')
 plt.xlabel('Time [s]', fontsize='large', fontweight='bold')
 axs[0].set_ylabel('Membrane Potential [mV]', fontsize='large', fontweight='bold')
 axs[1].set_ylabel('Error [mV]', fontsize='large', fontweight='bold')
@@ -30,11 +30,11 @@ eventContent = []
 nestValueContent = []
 nestEventContent = []
 
-with open("../../../Logs/" + latest_value_file) as f:
+with open("value.csv") as f:
     names = f.readline()
     valueContent = [x.strip().split(',') for x in f.readlines()]
 
-with open("../../../Logs/" + latest_event_file) as f:
+with open("event.csv") as f:
     names = f.readline()
     eventContent = [x.strip().split(',') for x in f.readlines()]
 

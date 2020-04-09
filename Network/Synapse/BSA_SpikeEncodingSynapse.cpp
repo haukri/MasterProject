@@ -16,7 +16,7 @@ BSA_SpikeEncodingSynapse::BSA_SpikeEncodingSynapse(Population* n_from, Populatio
 }
 
 void BSA_SpikeEncodingSynapse::initialize(Population* n_from, Population* n_to) {
-    inputSize = n_from->getNumberOfNeurons();
+    inputSize = n_from->getNumberOfOutputNeurons();
     outputSize = n_to->getNumberOfNeurons();
     if(inputSize != outputSize) {
         cout << "Number of input neurons not equal to number of output neurons" << endl;
@@ -28,9 +28,12 @@ void BSA_SpikeEncodingSynapse::initialize(Population* n_from, Population* n_to) 
     logger = Logging::getInstance();
     for(int i = 0; i < inputSize; i++) {
         output.push_back(new NoEvent());
-        input.assign(inputSize, deque<double>(0));
+        input.assign(inputSize, deque<double>(param->filter_length, 0));
     }
-    filter = vector<double>{0.05942473828591342,0.07318223830709897,0.11232230333947553,0.17484795255681723,0.25675440297792484,0.3523237031416342,0.454573094246691,0.5558198517560227,0.6483143637949771,0.724886509451,0.7795486730754763,0.8080021690669681,0.8080021690669681,0.7795486730754763,0.724886509451,0.6483143637949771,0.5558198517560227,0.45457309424669107,0.3523237031416343,0.256754402977925,0.17484795255681737,0.11232230333947553,0.07318223830709897,0.05942473828591342};
+    for(int i = 0; i < param->filter_length; i++) {
+        filter.push_back(0.54 - 0.46 * cos(6.283185307179586*i/(param->filter_length-1)));
+    }
+    // filter = vector<double>{0.05942473828591342,0.07318223830709897,0.11232230333947553,0.17484795255681723,0.25675440297792484,0.3523237031416342,0.454573094246691,0.5558198517560227,0.6483143637949771,0.724886509451,0.7795486730754763,0.8080021690669681,0.8080021690669681,0.7795486730754763,0.724886509451,0.6483143637949771,0.5558198517560227,0.45457309424669107,0.3523237031416343,0.256754402977925,0.17484795255681737,0.11232230333947553,0.07318223830709897,0.05942473828591342};
     for(int i = 0; i < param->filter_length; i++) {
         // TODO add
         // filter.push_back(0.5);
@@ -52,33 +55,25 @@ void BSA_SpikeEncodingSynapse::update() {
     for(int i = 0; i < inputSize; i++) {
         if(from_population->output[i]->type == EventType::Value) {
             input[i].push_back(static_cast<ValueEvent*>(from_population->output[i])->value);
-            if(input[i].size() > param->filter_length) {
-                input[i].pop_front();
-            }
+            input[i].pop_front();
             double error1 = 0;
             double error2 = 0;
-            if(input[i].size() >= param->filter_length) {
-                // Ben's Spiker Algorithm
+            // Ben's Spiker Algorithm
+            for(int j = 0; j < param->filter_length; j++) {
+                error1 += abs(input[i][j] - filter[j]);
+                error2 += abs(input[i][j]);
+            }
+            if(error1 <= (error2 - param->threshold)) {
+                output[i] = new SpikeEvent();
                 for(int j = 0; j < param->filter_length; j++) {
-                    error1 += abs(input[i][j] - filter[j]);
-                    error2 += abs(input[i][j]);
-                }
-                if(error1 <= (error2 + param->threshold)) {
-                    output[i] = new SpikeEvent();
-                    for(int j = 0; j < param->filter_length; j++) {
-                        input[i][j] -= filter[j];
-                    }
-                }
-                else {
-                    output[i] = new NoEvent();
+                    input[i][j] -= filter[j];
                 }
             }
             else {
                 output[i] = new NoEvent();
             }
-            output[i]->setWeight(10.0);
             to_population->setInput(i, output[i]);
-            logger->logEvent(456, 0, output[i]->type);
+            logger->logEvent((long)this, i, output[i]->type);
         }
     }
 }

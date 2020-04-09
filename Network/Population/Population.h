@@ -23,6 +23,8 @@ public:
 
     Population(int amount, std::string modelName) {
         numberOfNeurons = amount;
+        numberOfOutputNeurons = numberOfOutputNeurons == 0? amount : numberOfOutputNeurons;
+        numberOfInputNeurons = numberOfInputNeurons == 0? amount : numberOfInputNeurons;
         initialize();
         if(modelName == "iaf") {
             for(int i = 0; i < amount; i++) {
@@ -58,6 +60,8 @@ public:
 
     Population(int amount, std::string modelName, Parameters* param) {
         numberOfNeurons = amount;
+        numberOfOutputNeurons = numberOfOutputNeurons == 0? amount : numberOfOutputNeurons;
+        numberOfInputNeurons = numberOfInputNeurons == 0? amount : numberOfInputNeurons;
         initialize();
         if(modelName == "iaf") {
             for(int i = 0; i < amount; i++) {
@@ -97,7 +101,7 @@ public:
     virtual void update() {
         while(current_time < clock->getCurrentTime()) {
             resetOutput();
-            for(int i = 0; i < numberOfNeurons; i++) {
+            for(int i = 0; i < numberOfOutputNeurons; i++) {
                 output[i] = neurons[i]->update(clock->getDt());
                 logger->logEvent((long)this, i, output[i]->type);
                 neurons[i]->resetInput();
@@ -110,12 +114,20 @@ public:
         return numberOfNeurons;
     }
 
+    virtual int getNumberOfInputNeurons() {
+        return numberOfInputNeurons;
+    }
+
+    virtual int getNumberOfOutputNeurons() {
+        return numberOfOutputNeurons;
+    }
+
     virtual std::vector<Event*> getEvents() {
         return output;
     }
 
     void initialize() {
-        output = std::vector<Event*>(numberOfNeurons, NULL);
+        output = std::vector<Event*>(numberOfOutputNeurons, NULL);
         clock = Clock::getInstance();
         logger = Logging::getInstance();
     }
@@ -142,6 +154,7 @@ public:
 
     std::vector<Event*> output;
     int numberOfNeurons;
+    int numberOfInputNeurons = 0, numberOfOutputNeurons = 0;
     std::vector<Neuron*> neurons;
     double current_time;
     Clock* clock;

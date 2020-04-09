@@ -18,6 +18,7 @@ public:
     void setLearningRate(double learning_rate);
 
     int getInputSize();
+    int getOutputSize();
 
     void fit(Eigen::MatrixXd X, Eigen::MatrixXd y);
     Eigen::MatrixXd predict(Eigen::MatrixXd input);
@@ -29,6 +30,6 @@ public:
 private:
     vector<Layer*> layers;
     vector<int> layerSizes;
-    int inputSize = 0;
+    int inputSize = 0, outputSize = 0;
     double learning_rate;
 };
