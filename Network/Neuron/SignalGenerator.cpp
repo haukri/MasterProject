@@ -16,7 +16,13 @@ SignalGenerator::SignalGenerator(SignalGenerator_param* param) : param(param) {
 }
 
 Event* SignalGenerator::update(double n_dt) {
-    double signalValue = sin(2*3.1415926535897*param->f*clock->getCurrentTime())/4+sin(2*3.1415926535897*(param->f+0.15)*clock->getCurrentTime())/4+0.5;
+    double signalValue = 0;
+    if(param->f1 > 0)
+        signalValue += sin(2*3.1415926535897*param->f1*clock->getCurrentTime());
+    if(param->f2 > 0)
+        signalValue += sin(2*3.1415926535897*param->f2*clock->getCurrentTime());
+    signalValue *= param->scale;
+    signalValue += param->offset;
     logger->logValue(999, 0, EventType::Value, signalValue);
     return new ValueEvent(signalValue);
 }

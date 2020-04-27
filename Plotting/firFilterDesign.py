@@ -18,9 +18,17 @@ for i in range(N):
 
 plt.plot(hamwin)
 
+triang = [1/N*x for x in range(11)] + list(reversed([1/N*x for x in range(11)][:-1]))
+triang = [x/3 for x in triang]
+plt.plot(triang)
+
 filt = ""
-for s in t:
+for s in triang:
     filt = filt + str(s) + ","
 print(filt)
+
+
+
+
 
 plt.show()

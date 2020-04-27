@@ -13,6 +13,7 @@
 struct BSA_SpikeEncodingSynapse_param : Parameters {
     double filter_length = 24;   // Time window in seconds
     double threshold = 0.9550;
+    double scale = 1.0;
 };
 
 class BSA_SpikeEncodingSynapse : public Synapse

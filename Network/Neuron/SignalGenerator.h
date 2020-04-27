@@ -7,7 +7,10 @@
 #include "Network/utils/Clock.h"
 
 struct SignalGenerator_param : Parameters {
-    double f = 0.5;
+    double f1 = 1;
+    double f2 = 0;
+    double scale = 1;
+    double offset = 0;
 };
 
 class SignalGenerator : public Neuron

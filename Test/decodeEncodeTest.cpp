@@ -21,7 +21,7 @@ int main()
 
     // Populations
     SignalGenerator_param* paramp1 = new SignalGenerator_param();
-    paramp1->f = 0.1;
+    paramp1->f1 = 0.1;
     Population* p1 = new Population(1, "SignalGenerator", paramp1);
 
     ArtificialPopulation* p2 = new ArtificialPopulation(ann);
