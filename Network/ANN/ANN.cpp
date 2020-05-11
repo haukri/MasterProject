@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ANN.h"
 #include <assert.h>
+#include "Filter.h"
 
 using namespace std;
 
@@ -11,7 +12,12 @@ ANN::ANN()
 
 void ANN::addLayer(int size, string type) {
     outputSize = size;
-    layers.push_back(new Dense(inputSize, size, &learning_rate, type));
+    if(type == "lowpass" || type == "highpass" || type == "passband") {
+        layers.push_back(new Filter(inputSize, size, &learning_rate, type));
+    }
+    else {
+        layers.push_back(new Dense(inputSize, size, &learning_rate, type));
+    }
 }
 
 void ANN::setInputSize(int size) {

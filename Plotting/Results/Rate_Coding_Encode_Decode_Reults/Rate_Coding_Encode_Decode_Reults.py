@@ -25,8 +25,8 @@ axs[1].grid()
 latest_event_file = max([f for f in os.scandir("../../../Logs") if "event" in f.name], key=lambda x: x.stat().st_mtime).name
 latest_value_file = max([f for f in os.scandir("../../../Logs") if "value" in f.name], key=lambda x: x.stat().st_mtime).name
 
-shutil.copy("../../../Logs/" + latest_event_file, 'event.csv')
-shutil.copy("../../../Logs/" + latest_value_file, 'value.csv')
+# shutil.copy("../../../Logs/" + latest_event_file, 'event.csv')
+# shutil.copy("../../../Logs/" + latest_value_file, 'value.csv')
 
 valueContent = []
 eventContent = []

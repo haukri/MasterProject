@@ -9,11 +9,14 @@
 #include <vector>
 #include "Network/utils/Clock.h"
 #include "Network/utils/Logging.h"
+#include "Network/Synapse/BSA_SpikeEncodingSynapse.h"
+
 
 struct BSA_SpikeDecodingSynapse_param : Parameters {
     double filter_length = 24;   // Time window in seconds
     double threshold = 0.9550;
     double scale = 1.0;
+    WindowType window = HAMMING;
 };
 
 class BSA_SpikeDecodingSynapse : public Synapse

@@ -10,10 +10,13 @@
 #include "Network/utils/Clock.h"
 #include "Network/utils/Logging.h"
 
+enum WindowType{TRIANGLE, HAMMING};
+
 struct BSA_SpikeEncodingSynapse_param : Parameters {
     double filter_length = 24;   // Time window in seconds
     double threshold = 0.9550;
     double scale = 1.0;
+    WindowType window = HAMMING;
 };
 
 class BSA_SpikeEncodingSynapse : public Synapse

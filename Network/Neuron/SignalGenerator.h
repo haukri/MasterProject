@@ -9,6 +9,11 @@
 struct SignalGenerator_param : Parameters {
     double f1 = 1;
     double f2 = 0;
+    double f3 = 0;
+    double f4 = 0;
+    double f5 = 0;
+    double f6 = 0;
+    double f7 = 0;
     double scale = 1;
     double offset = 0;
 };

@@ -18,9 +18,9 @@ int main(int argc, char* argv[])
     srand(time(NULL));
 
     // Command line arguments
-    double filter_length = 21;
+    double threshold = 0.995;
     if(argc == 2) {
-        filter_length = atof(argv[1]);
+        threshold = atof(argv[1]);
     }
     // ----------------------
 
@@ -49,14 +49,14 @@ int main(int argc, char* argv[])
 
     // Synapses
     BSA_SpikeEncodingSynapse_param* params1 = new BSA_SpikeEncodingSynapse_param();
-    params1->filter_length = filter_length;
-    params1->threshold = 0.995;
+    params1->filter_length = 20;
+    params1->threshold = threshold;
     params1->scale = 1.0/10.0;
     BSA_SpikeEncodingSynapse* s1 = new BSA_SpikeEncodingSynapse(p1, p3, params1);
 
     BSA_SpikeDecodingSynapse_param* params2 = new BSA_SpikeDecodingSynapse_param();
-    params2->filter_length = filter_length;
-    params2->threshold = 0.995;
+    params2->filter_length = 20;
+    params2->threshold = threshold;
     params2->scale = 1.0/10.0;
     BSA_SpikeDecodingSynapse* s2 = new BSA_SpikeDecodingSynapse(p3, p2, params2);
 
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 
     cout << (long)s2 << endl;
 
-    cout << "Using filter length: " << filter_length << endl;
+    cout << "Using threshold: " << threshold << endl;
 
     n.run(1.0);
 
