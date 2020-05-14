@@ -17,6 +17,7 @@ plt.rcParams['figure.figsize'] = (8,6)
 plt.title('Test signal 1 \n RMSE for rate encoding and decoding', fontsize='xx-large', fontweight='bold')
 plt.xlabel('Highest frequency in signal [Hz]', fontsize='xx-large', fontweight='bold')
 plt.ylabel('Root mean square error', fontsize='xx-large', fontweight='bold')
+plt.ylim([0, 0.3])
 plt.grid()
 # ------------- Plot Setup ------------- #
 

@@ -77,7 +77,7 @@ for dt in ['0.001', '0.0001', '0.00001']:
         plotValueOutputs(valueContent, populationID, '0', '3', 'Decoded signal')
         plotValueOutputs(valueContent, '999', '0', '3', 'Test signal 1')
         plt.legend(prop=dict(weight='bold', size='large'))
-        plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_plot_' + dt.replace('.', '_') + '_' + args[-1] + '.png', bbox_inches='tight', dpi=300)
+        plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_plot_' + dt.replace('.', '_') + '_' + args[-1] + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
 
 
 

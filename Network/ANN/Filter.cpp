@@ -2,11 +2,13 @@
 
 Filter::Filter(int input_size, int output_size, double* learning_rate, string type) {
     clock = Clock::getInstance();
-    double normalizedFreq = 6.0 / (1.0 / clock->getDt());
-    cout << "normfreq: " << normalizedFreq << endl;
+    int pos = type.find_first_of(',');
+    string filterType = type.substr(0, pos);
+    string cutoffFreq = type.substr(pos+1);
+    double normalizedFreq = stoi(cutoffFreq) / (1.0 / clock->getDt());
     output = Eigen::MatrixXd(1, 1);
-    if(type == "lowpass") {
-        filter.lowpass(5000, normalizedFreq);
+    if(filterType == "lowpass") {
+        filter.lowpass(2000, normalizedFreq);
     }
 };
 

@@ -31,10 +31,10 @@ void Logging::logValue(long populationID, int neuronID, int valueType, double va
 }
 
 void Logging::logEvent(long populationID, int neuronID, int eventType) {
-    event_time.push_back(clock->getCurrentTime());
-    event_populationID.push_back(populationID);
-    event_neuronID.push_back(neuronID);
-    event_eventType.push_back(eventType);
+    // event_time.push_back(clock->getCurrentTime());
+    // event_populationID.push_back(populationID);
+    // event_neuronID.push_back(neuronID);
+    // event_eventType.push_back(eventType);
 }
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss

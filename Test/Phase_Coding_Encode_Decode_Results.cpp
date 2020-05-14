@@ -7,8 +7,8 @@
 #include "Network/Neuron/Izhikevich.h"
 #include "Network/ANN/ANN.h"
 #include "Network/Population/ArtificialPopulation.h"
-#include "Network/Synapse/BSA_SpikeDecodingSynapse.h"
-#include "Network/Synapse/BSA_SpikeEncodingSynapse.h"
+#include "Network/Synapse/TemporalPhaseEncodingSynapse.h"
+#include "Network/Synapse/TemporalPhaseDecodingSynapse.h"
 
 using namespace std;
 
@@ -24,9 +24,11 @@ int main(int argc, char* argv[])
     double sine5 = 0;
     double sine6 = 0;
     double sine7 = 0;
-    double filter_length = 20;
+    double som_frequency = 100;
+    double som_phase = 0;
+    double window_length_s = 0.1;
     double dt = 0.0001;
-    if(argc == 10) {
+    if(argc == 12) {
         sine1 = atof(argv[1]);
         sine2 = atof(argv[2]);
         sine3 = atof(argv[3]);
@@ -34,8 +36,10 @@ int main(int argc, char* argv[])
         sine5 = atof(argv[5]);
         sine6 = atof(argv[6]);
         sine7 = atof(argv[7]);
-        filter_length = atof(argv[8]);
-        dt = atof(argv[9]);
+        som_frequency = atof(argv[8]);
+        som_phase = atof(argv[9]);
+        window_length_s = atof(argv[10]);
+        dt = atof(argv[11]);
     }
     // ----------------------
 
@@ -58,17 +62,17 @@ int main(int argc, char* argv[])
     Population* p4 = new Population(1, "PassThrough");
 
     // Synapses
-    BSA_SpikeEncodingSynapse_param* params1 = new BSA_SpikeEncodingSynapse_param();
-    params1->filter_length = filter_length;
-    params1->threshold = 0.995;
-    params1->scale = 1.0/8.0;
-    BSA_SpikeEncodingSynapse* s1 = new BSA_SpikeEncodingSynapse(p1, p3, params1);
+    TemporalPhaseEncodingSynapse_param* params1 = new TemporalPhaseEncodingSynapse_param();
+    params1->window_length_s = window_length_s;
+    params1->som_frequency = som_frequency;
+    params1->som_phase = som_phase;
+    TemporalPhaseEncodingSynapse* s1 = new TemporalPhaseEncodingSynapse(p1, p3, params1);
 
-    BSA_SpikeDecodingSynapse_param* params2 = new BSA_SpikeDecodingSynapse_param();
-    params2->filter_length = filter_length;
-    params2->threshold = 0.995;
-    params2->scale = 1.0/8.0;
-    BSA_SpikeDecodingSynapse* s2 = new BSA_SpikeDecodingSynapse(p3, p4, params2);
+    TemporalPhaseDecodingSynapse_param* params2 = new TemporalPhaseDecodingSynapse_param();
+    params2->window_length_s = window_length_s;
+    params2->som_frequency = som_frequency;
+    params2->som_phase = som_phase;
+    TemporalPhaseDecodingSynapse* s2 = new TemporalPhaseDecodingSynapse(p3, p4, params2);
 
     // Create the network
     Network_param* n_param = new Network_param();

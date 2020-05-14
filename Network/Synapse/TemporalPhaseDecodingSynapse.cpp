@@ -62,9 +62,9 @@ void TemporalPhaseDecodingSynapse::update() {
                 spikeTimes(j) = (spikeTimes(j) - 0.1) * 1.25;
 
                 static_cast<ValueEvent*>(output[i])->setValue(spikeTimes(j));
-                logger->logValue(321, i, EventType::Value, spikeTimes(j));
-            }
+            } 
             to_population->setInput(i, output[i]);
         }
+        logger->logValue((long)this, i, EventType::Value, static_cast<ValueEvent*>(output[i])->value);
     }
 }

@@ -12,7 +12,7 @@ ANN::ANN()
 
 void ANN::addLayer(int size, string type) {
     outputSize = size;
-    if(type == "lowpass" || type == "highpass" || type == "passband") {
+    if(type.rfind("lowpass", 0) == 0 || type.rfind("highpass", 0) == 0 || type.rfind("passband", 0) == 0) {
         layers.push_back(new Filter(inputSize, size, &learning_rate, type));
     }
     else {

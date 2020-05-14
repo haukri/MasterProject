@@ -60,7 +60,7 @@ void TemporalPhaseEncodingSynapse::update() {
                 output[j] = new NoEvent();
             }
             to_population->setInput(j, output[j]);
-            logger->logEvent(5678, 0, output[j]->type);
+            logger->logEvent((long)this, j, output[j]->type);
         }
         if(currentWindow <= clock->getCurrentTime()) {
             for(int j = 0; j < spikeTimes.size(); j++) {
