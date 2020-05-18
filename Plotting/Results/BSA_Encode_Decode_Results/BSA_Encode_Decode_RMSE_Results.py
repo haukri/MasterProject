@@ -9,6 +9,9 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 from subprocess import check_output
+import sys
+
+saveFigure = any([x=='-s' or x =='--save' for x in sys.argv])
 
 plotname = 'rate_coding_rmse'
 
@@ -44,7 +47,9 @@ populationIDs = []
 def generateFrequencies(scale):
     return [str(x*scale) for x in [1,4,7,12,18,24,50]]
 
-arguments = [generateFrequencies(x/10.0) for x in range(1,100)]
+# arguments = [generateFrequencies(x/10.0) for x in range(1,100)]
+
+arguments = [generateFrequencies(1/10.0)] + [generateFrequencies(x/2.0) for x in range(1,20)]
 
 for dt in ['0.001', '0.0001', '0.00001']:
     valueContents = []
@@ -73,7 +78,7 @@ for dt in ['0.001', '0.0001', '0.00001']:
     for valueContent, populationID in zip(valueContents, populationIDs):
         RMSE.append(calculateRMSE(valueContent, populationID))
     plt.plot([float(x[6]) for x in arguments], RMSE, linewidth=2, label='dt = ' + dt, marker='.')
-    arguments = [generateFrequencies(x/2.0) for x in range(1,20)]
+    
 
 
 
@@ -113,6 +118,7 @@ for valueContent, populationID in zip(valueContents, populationIDs):
 
 # ------------- Save and show plot ------------- #
 plt.legend(prop=dict(weight='bold', size='large'))
-plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + plotname + '.png', bbox_inches='tight', dpi=300)
+if saveFigure:
+    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + plotname + '.png', bbox_inches='tight', dpi=300)
 plt.show()
 # ------------- Save and show plot ------------- #

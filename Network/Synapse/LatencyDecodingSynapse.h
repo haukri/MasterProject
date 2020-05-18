@@ -11,6 +11,7 @@
 
 struct LatencyDecodingSynapse_param : Parameters {
     double window_length_s = 0.5;
+    double delay_s = 0.0;
 };
 
 class LatencyDecodingSynapse : public Synapse

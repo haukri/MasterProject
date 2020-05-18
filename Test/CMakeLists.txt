@@ -26,6 +26,9 @@ add_executable (Receptive_Field_Coding_Encode_Decode_Results Receptive_Field_Cod
 add_executable (Latency_Coding_Sine_Lowpass_Results Latency_Coding_Sine_Lowpass_Results.cpp)
 add_executable (Phase_Coding_Sine_Lowpass_Results Phase_Coding_Sine_Lowpass_Results.cpp)
 add_executable (Population_Latency_Coding_Sine_Lowpass_Results Population_Latency_Coding_Sine_Lowpass_Results.cpp)
+add_executable (Latency_Coding_Example Latency_Coding_Example.cpp)
+add_executable (Latency_Coding_Lowpass_Example_Results Latency_Coding_Lowpass_Example_Results.cpp)
+
 
 
 target_link_libraries (annTest Network)
@@ -56,3 +59,5 @@ target_link_libraries (Receptive_Field_Coding_Encode_Decode_Results Network)
 target_link_libraries (Latency_Coding_Sine_Lowpass_Results Network)
 target_link_libraries (Phase_Coding_Sine_Lowpass_Results Network)
 target_link_libraries (Population_Latency_Coding_Sine_Lowpass_Results Network)
+target_link_libraries (Latency_Coding_Example Network)
+target_link_libraries (Latency_Coding_Lowpass_Example_Results Network)

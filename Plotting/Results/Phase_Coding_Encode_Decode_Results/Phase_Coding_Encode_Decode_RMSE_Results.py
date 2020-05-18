@@ -47,7 +47,8 @@ populationIDs = []
 def generateFrequencies(scale):
     return [str(x*scale) for x in [1,4,7,12,18,24,50]]
 
-arguments = [generateFrequencies(x/10.0) for x in range(1,100)]
+# arguments = [generateFrequencies(x/10.0) for x in range(1,100)]
+arguments = [generateFrequencies(1/10.0)] + [generateFrequencies(x/2.0) for x in range(1,20)]
 
 for dt, window in zip(['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003']):
     valueContents = []
@@ -76,7 +77,6 @@ for dt, window in zip(['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003'
     for valueContent, populationID in zip(valueContents, populationIDs):
         RMSE.append(calculateRMSE(valueContent, populationID))
     plt.plot([float(x[6]) for x in arguments], RMSE, linewidth=2, label='dt = ' + dt, marker='.')
-    arguments = [generateFrequencies(x/2.0) for x in range(1,20)]
 
 
 

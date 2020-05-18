@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 import os
 from collections import defaultdict
 import math
@@ -21,10 +22,10 @@ def calculateRMSE(valueContent, population_id, scale=1, offset=0):
     rms = sqrt(mean_squared_error(y_signal, y_recon))
     return rms
 
-def plotValueOutputs(valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0):
+def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0):
     x = [float(x[0]) for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
     y = [float(x[4])*scale+offset for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
-    plt.plot(x, y, label=label)
+    ax.plot(x, y, label=label)
 
 def plotSpikeOutputs(eventContent, populationID, neuronID, color='blue', neuronOffset=0):
     x = [float(x[0]) for x in eventContent if populationID == x[1] and neuronID == x[2] and x[3] == '0']
@@ -41,8 +42,12 @@ def generateFrequencies(scale):
     # return [str(x*scale) for x in [1,0,0,0,0,0,0]]
 
 arguments = [generateFrequencies(1), generateFrequencies(6)]
+plt.rcParams['figure.figsize'] = (9,6)
+gs = gridspec.GridSpec(3, 2)
+fig = plt.figure()
+fig.suptitle('Latency coding encode and decode of test signal 1', fontsize='large', fontweight='bold')
 
-for dt, window in zip(['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003']):
+for index, dt, window in zip([0,1,2], ['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003']):
     valueContents = []
     eventContents = []
     populationIDs = []
@@ -69,24 +74,30 @@ for dt, window in zip(['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003'
 
     for eventContent, valueContent, populationID, args, spikePopulationID in zip(eventContents, valueContents, populationIDs, arguments, spikePopulationIDs):
         plt.rcParams['figure.figsize'] = (8,6)
-        plt.figure()
+        column = int(args[-1] == '300')
+        ax = fig.add_subplot(gs[index, column])
         # ------------- Plot Setup ------------- #
         plt.rcParams['figure.figsize'] = (8,6)
-        plt.title('Test signal 1 \n Latency coding, dt = ' + str(float(dt)*1000.0) + 'ms \n signal frequencies = [' + ','.join(args) + ']' , fontsize='xx-large', fontweight='bold')
-        plt.xlabel('Time [s]', fontsize='xx-large', fontweight='bold')
-        plt.ylabel('Amplitude', fontsize='xx-large', fontweight='bold')
+        plt.title('dt = ' + str(float(dt)*1000.0) + 'ms \n f = [' + ','.join(args) + ']' , fontsize='large', fontweight='bold')
+        if column == 0:
+            plt.ylabel('Amplitude', fontsize='medium', fontweight='bold')
+        if index == 2:
+            plt.xlabel('Time [s]', fontsize='medium', fontweight='bold')
         plt.grid()
         if args[-1] == '300':
             plt.xlim([0,1/6.0])
         else:
             plt.xlim([0, 1])
         # ------------- Plot Setup ------------- #
-        plotValueOutputs(valueContent, populationID, '0', '3', 'Decoded signal')
-        plotValueOutputs(valueContent, '999', '0', '3', 'Test signal 1')
+        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal')
+        plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1')
         # plotSpikeOutputs(eventContent, spikePopulationID, '0')
-        plt.legend(prop=dict(weight='bold', size='large'))
-        if saveFigure:
-            plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'latency_coding_plot_' + dt.replace('.', '_') + '_' + args[-1] + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
+        # plt.legend(prop=dict(weight='bold', size='large'))
+
+fig.tight_layout()
+fig.subplots_adjust(top=0.85)
+if saveFigure:
+    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'latency_coding_plot_all' + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
 
 
 
@@ -125,7 +136,7 @@ for valueContent, populationID in zip(valueContents, populationIDs):
 
 
 # ------------- Save and show plot ------------- #
-plt.legend(prop=dict(weight='bold', size='large'))
+# plt.legend(prop=dict(weight='bold', size='large'))
 # plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + plotname + '.png', bbox_inches='tight', dpi=300)
 plt.show()
 # ------------- Save and show plot ------------- #

@@ -30,7 +30,7 @@ void LatencyDecodingSynapse::initialize(Population* n_from, Population* n_to) {
     logger = Logging::getInstance();
     spikeTimes = Eigen::VectorXd(inputSize);
     spikeTimes.setConstant(-1);
-    currentWindow = param->window_length_s;
+    currentWindow = param->window_length_s + param->delay_s;
     for(int i = 0; i < inputSize; i++) {
         output.push_back(new NoEvent());
     }
