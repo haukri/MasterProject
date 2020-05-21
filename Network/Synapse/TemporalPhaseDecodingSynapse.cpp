@@ -30,7 +30,7 @@ void TemporalPhaseDecodingSynapse::initialize(Population* n_from, Population* n_
     logger = Logging::getInstance();
     spikeTimes = Eigen::VectorXd(inputSize);
     spikeTimes.setConstant(-1);
-    currentWindow = param->window_length_s;
+    currentWindow = param->window_length_s + param->delay_s;
     phaseStep = param->window_length_s / param->som_frequency;
     phaseOffset = (param->som_phase * 1.0) / (2 * M_PI * param->som_frequency);
     for(int i = 0; i < inputSize; i++) {

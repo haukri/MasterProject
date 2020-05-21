@@ -27,7 +27,9 @@ int main(int argc, char* argv[])
     double window_length_s = 0.1;
     int number_of_neurons = 30;
     double dt = 0.0001;
-    if(argc == 11) {
+    double mean = 0;
+    double variance = 0;
+    if(argc >= 11) {
         sine1 = atof(argv[1]);
         sine2 = atof(argv[2]);
         sine3 = atof(argv[3]);
@@ -38,6 +40,10 @@ int main(int argc, char* argv[])
         window_length_s = atof(argv[8]);
         number_of_neurons = atoi(argv[9]);
         dt = atof(argv[10]);
+    }
+    if(argc == 13) {
+        mean = atof(argv[11]);
+        variance = atof(argv[12]);
     }
     // ----------------------
 
@@ -54,6 +60,8 @@ int main(int argc, char* argv[])
     paramp1->f7 = sine7;
     paramp1->scale = 1/16.0;
     paramp1->offset = 0.5;
+    paramp1->noiseMean = mean;
+    paramp1->noiseStd = variance;
     Population* p1 = new Population(1, "SignalGenerator", paramp1);
 
     Population* p3 = new Population(number_of_neurons, "PassThrough");

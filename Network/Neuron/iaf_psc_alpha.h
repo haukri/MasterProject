@@ -8,16 +8,16 @@
 #include <limits>
 
 struct iaf_psc_alpha_param : Parameters {
-    double Tau_ = 10.0;             // ms
-    double C_ = 250.0;              // pF
-    double TauR_ = 2.0;             // ms
-    double E_L_ = -70.0;            // mV
-    double I_e_ = 0.0;              // pA
-    double V_reset_ = -70.0 - E_L_; // mV, rel to E_L_
-    double Theta_ = -55.0 - E_L_;   // mV, rel to E_L_
+    double Tau_ = 10.0;             // ms Membrane time constant
+    double C_ = 250.0;              // pF Capacitance
+    double TauR_ = 2.0;             // ms Refractory time
+    double E_L_ = -70.0;            // mV Resting potential
+    double I_e_ = 0.0;              // pA Constant external input current
+    double V_reset_ = -70.0 - E_L_; // mV, rel to E_L_ Reset potential of the membrane
+    double Theta_ = -55.0 - E_L_;   // mV, rel to E_L_ Threshold value
     double LowerBound_ = -std::numeric_limits< double >::max();
-    double tau_ex_ = 2.0;           // ms
-    double tau_in_ = 2.0;           // ms
+    double tau_ex_ = 2.0;           // ms Rise time of the excitatory synaptic alpha function
+    double tau_in_ = 2.0;           // ms Rise time of the inhibitory synaptic alpha function
 };
 
 class iaf_psc_alpha : public Neuron

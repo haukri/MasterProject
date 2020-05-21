@@ -13,6 +13,7 @@ struct TemporalPhaseDecodingSynapse_param : Parameters {
     int som_frequency = 40;
     double som_phase = 0;
     double window_length_s = 0.5;
+    double delay_s = 0.0;
 };
 
 class TemporalPhaseDecodingSynapse : public Synapse

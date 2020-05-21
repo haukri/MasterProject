@@ -5,6 +5,7 @@
 #include "Neuron.h"
 #include "Network/utils/Parameters.h"
 #include "Network/utils/Clock.h"
+#include <random>
 
 struct SignalGenerator_param : Parameters {
     double f1 = 1;
@@ -16,6 +17,8 @@ struct SignalGenerator_param : Parameters {
     double f7 = 0;
     double scale = 1;
     double offset = 0;
+    double noiseMean = 0;
+    double noiseStd = 0;
 };
 
 class SignalGenerator : public Neuron
@@ -30,6 +33,8 @@ public:
 private:
     double dt;
     SignalGenerator_param* param;
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution;
     Clock* clock;
 };
 

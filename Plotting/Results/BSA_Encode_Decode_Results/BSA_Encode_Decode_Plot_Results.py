@@ -50,7 +50,7 @@ for index, dt in zip([0,1,2],['0.001', '0.0001', '0.00001']):
     eventContents = []
     populationIDs = []
     for arg in arguments:
-        output = check_output(['../../../build/Test/BSA_Encode_Decode_Results', *arg, '20', dt])
+        output = check_output(['../../../build/Test/BSA_Encode_Decode_Results', *arg, '20', dt, '0', '0.1'])
         populationIDs.append(output.decode('UTF-8').split('\n')[0])
 
         latest_event_file = max([f for f in os.scandir("../../../Logs") if "event" in f.name], key=lambda x: x.stat().st_mtime).name
@@ -84,8 +84,8 @@ for index, dt in zip([0,1,2],['0.001', '0.0001', '0.00001']):
         else:
             plt.xlim([0, 1])
         # ------------- Plot Setup ------------- #
-        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal')
         plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1')
+        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal')
         # plt.legend(prop=dict(weight='bold', size='large'))
 
 fig.tight_layout()

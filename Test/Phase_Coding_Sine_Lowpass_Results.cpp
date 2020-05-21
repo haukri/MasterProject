@@ -107,6 +107,7 @@ int main(int argc, char* argv[])
 
     cout << (long)s2 << endl;
     cout << (long)s4 << endl;
+    cout << (long)p3 << endl;
 
     // Run the network for 1 second
     n.run(1.0);

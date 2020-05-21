@@ -14,6 +14,7 @@ struct ReceptiveFieldDecodingSynapse_param : Parameters {
     int number_of_neurons = 10;
     double input_min = 0.0;
     double input_max = 1.0;
+    double delay_s = 0;
 };
 
 class ReceptiveFieldDecodingSynapse : public Synapse

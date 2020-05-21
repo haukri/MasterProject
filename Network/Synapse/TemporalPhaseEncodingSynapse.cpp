@@ -53,7 +53,7 @@ void TemporalPhaseEncodingSynapse::update() {
         for(int j = 0; j < spikeTimes.size(); j++) {
             if(spikeTimes(j) <= clock->getCurrentTime() && spikeTimes(j) > -1) {
                 output[j] = new SpikeEvent();
-                output[j]->setWeight(1.0);
+                output[j]->setWeight(1300.0);
                 spikeTimes(j) = -1;
             }
             else {

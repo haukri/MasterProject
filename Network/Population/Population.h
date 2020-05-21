@@ -103,7 +103,9 @@ public:
             resetOutput();
             for(int i = 0; i < numberOfOutputNeurons; i++) {
                 output[i] = neurons[i]->update(clock->getDt());
-                logger->logEvent((long)this, i, output[i]->type);
+                if(output[i]->type != EventType::No) {
+                    logger->logEvent((long)this, i, output[i]->type);
+                }
                 neurons[i]->resetInput();
             }
             current_time += clock->getDt();

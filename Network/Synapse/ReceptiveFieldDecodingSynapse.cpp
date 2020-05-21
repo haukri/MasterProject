@@ -30,7 +30,7 @@ void ReceptiveFieldDecodingSynapse::initialize(Population* n_from, Population* n
     logger = Logging::getInstance();
     spikeTimes = Eigen::VectorXd(param->number_of_neurons);
     spikeTimes.setConstant(-1);
-    currentWindow = param->window_length_s;
+    currentWindow = param->window_length_s + param->delay_s;
     outputStep = (param->input_max - param->input_min) / (param->number_of_neurons -1);
     for(int i = 0; i < param->number_of_neurons; i++) {
         output.push_back(new NoEvent());

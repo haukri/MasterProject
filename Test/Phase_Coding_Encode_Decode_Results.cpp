@@ -28,7 +28,9 @@ int main(int argc, char* argv[])
     double som_phase = 0;
     double window_length_s = 0.1;
     double dt = 0.0001;
-    if(argc == 12) {
+    double mean = 0;
+    double variance = 0;
+    if(argc >= 12) {
         sine1 = atof(argv[1]);
         sine2 = atof(argv[2]);
         sine3 = atof(argv[3]);
@@ -40,6 +42,10 @@ int main(int argc, char* argv[])
         som_phase = atof(argv[9]);
         window_length_s = atof(argv[10]);
         dt = atof(argv[11]);
+    }
+    if(argc == 14) {
+        mean = atof(argv[12]);
+        variance = atof(argv[13]);
     }
     // ----------------------
 
@@ -56,6 +62,8 @@ int main(int argc, char* argv[])
     paramp1->f7 = sine7;
     paramp1->scale = 1/16.0;
     paramp1->offset = 0.5;
+    paramp1->noiseMean = mean;
+    paramp1->noiseStd = variance;
     Population* p1 = new Population(1, "SignalGenerator", paramp1);
 
     Population* p3 = new Population(1, "PassThrough");

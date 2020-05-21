@@ -26,7 +26,9 @@ int main(int argc, char* argv[])
     double sine7 = 0;
     double filter_length = 20;
     double dt = 0.0001;
-    if(argc == 10) {
+    double mean = 0;
+    double variance = 0;
+    if(argc >= 10) {
         sine1 = atof(argv[1]);
         sine2 = atof(argv[2]);
         sine3 = atof(argv[3]);
@@ -36,6 +38,10 @@ int main(int argc, char* argv[])
         sine7 = atof(argv[7]);
         filter_length = atof(argv[8]);
         dt = atof(argv[9]);
+    }
+    if(argc == 12) {
+        mean = atof(argv[10]);
+        variance = atof(argv[11]);
     }
     // ----------------------
 
@@ -52,6 +58,8 @@ int main(int argc, char* argv[])
     paramp1->f7 = sine7;
     paramp1->scale = 1/16.0;
     paramp1->offset = 0.5;
+    paramp1->noiseMean = mean;
+    paramp1->noiseStd = variance;
     Population* p1 = new Population(1, "SignalGenerator", paramp1);
 
     Population* p3 = new Population(1, "PassThrough");

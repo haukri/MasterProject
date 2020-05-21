@@ -13,11 +13,18 @@ import sys
 
 saveFigure = any([x=='-s' or x =='--save' for x in sys.argv])
 
-plotname = 'phase_coding_rmse'
+noiseOn = False
+std = '0'
+
+if noiseOn:
+    plotname = 'phase_coding_rmse_signal_2'
+    std = '0.1'
+else:
+    plotname = 'phase_coding_rmse_signal_1'
 
 # ------------- Plot Setup ------------- #
 plt.rcParams['figure.figsize'] = (8,6)
-plt.title('Test signal 1 \n RMSE for rate encoding and decoding', fontsize='xx-large', fontweight='bold')
+plt.title('Test signal 1 \n RMSE for phase encoding and decoding', fontsize='xx-large', fontweight='bold')
 plt.xlabel('Highest frequency in signal [Hz]', fontsize='xx-large', fontweight='bold')
 plt.ylabel('Root mean square error', fontsize='xx-large', fontweight='bold')
 plt.ylim([0, 0.3])
@@ -55,7 +62,7 @@ for dt, window in zip(['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003'
     eventContents = []
     populationIDs = []
     for arg in arguments:
-        output = check_output(['../../../build/Test/Phase_Coding_Encode_Decode_Results', *arg, '80000', '0', window , dt])
+        output = check_output(['../../../build/Test/Phase_Coding_Encode_Decode_Results', *arg, '80000', '0', window , dt, '0', std])
         populationIDs.append(output.decode('UTF-8').split('\n')[0])
 
         latest_event_file = max([f for f in os.scandir("../../../Logs") if "event" in f.name], key=lambda x: x.stat().st_mtime).name

@@ -87,6 +87,8 @@ void BSA_SpikeEncodingSynapse::update() {
             }
             if(error1 <= (error2 - param->threshold)) {
                 output[i] = new SpikeEvent();
+                output[i]->setWeight(900.0);
+                logger->logEvent((long)this, i, output[i]->type);
                 for(int j = 0; j < param->filter_length; j++) {
                     input[i][j] -= filter[j];
                 }
@@ -95,7 +97,6 @@ void BSA_SpikeEncodingSynapse::update() {
                 output[i] = new NoEvent();
             }
             to_population->setInput(i, output[i]);
-            logger->logEvent((long)this, i, output[i]->type);
         }
     }
 }
