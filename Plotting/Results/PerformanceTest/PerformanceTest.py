@@ -33,7 +33,7 @@ if runTests:
     with open('non-spiking-execution-times.json', 'w') as f:
         f.write(json.dumps(executionTimes))
 
-plt.title('Execution time for 10 second simulation\n with populations of neurons', fontsize='x-large', fontweight='bold')
+plt.title('Intel i5 running Ubuntu\n Execution time for 10 second simulation\n with populations of neurons', fontsize='x-large', fontweight='bold')
 plt.xlabel('Total number of neurons', fontsize='x-large', fontweight='bold')
 plt.ylabel('Execution time [ms]', fontsize='x-large', fontweight='bold')
 plt.grid()

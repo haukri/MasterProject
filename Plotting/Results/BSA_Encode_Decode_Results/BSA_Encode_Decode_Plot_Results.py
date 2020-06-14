@@ -22,10 +22,13 @@ def calculateRMSE(valueContent, population_id, scale=1, offset=0):
     rms = sqrt(mean_squared_error(y_signal, y_recon))
     return rms
 
-def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0):
+def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0, color=''):
     x = [float(x[0]) for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
     y = [float(x[4])*scale+offset for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
-    ax.plot(x, y, label=label)
+    if color:
+        ax.plot(x, y, label=label, color=color)
+    else:
+        ax.plot(x, y, label=label)
 
 def plotSpikeOutputs(eventContent, populationID, neuronID, color='blue', neuronOffset=0):
     x = [float(x[0]) for x in eventContent if populationID == x[1] and neuronID == x[2] and x[3] == '0']
@@ -43,7 +46,7 @@ arguments = [generateFrequencies(1), generateFrequencies(6)]
 plt.rcParams['figure.figsize'] = (9,6)
 gs = gridspec.GridSpec(3, 2)
 fig = plt.figure()
-fig.suptitle('Rate coding encode and decode of test signal 1', fontsize='large', fontweight='bold')
+fig.suptitle('Rate coding encode and decode of test signal 2', fontsize='large', fontweight='bold')
 
 for index, dt in zip([0,1,2],['0.001', '0.0001', '0.00001']):
     valueContents = []
@@ -73,7 +76,7 @@ for index, dt in zip([0,1,2],['0.001', '0.0001', '0.00001']):
         ax = fig.add_subplot(gs[index, column])
         # ------------- Plot Setup ------------- #
         plt.rcParams['figure.figsize'] = (8,6)
-        plt.title('dt = ' + str(float(dt)*1000.0) + 'ms \n f = [' + ','.join(args) + ']' , fontsize='large', fontweight='bold')
+        plt.title('dt = ' + str(float(dt)*1000.0) + 'ms \n f = [' + ','.join(args) + ']Hz' , fontsize='large', fontweight='bold')
         if column == 0:
             plt.ylabel('Amplitude', fontsize='medium', fontweight='bold')
         if index == 2:
@@ -84,14 +87,15 @@ for index, dt in zip([0,1,2],['0.001', '0.0001', '0.00001']):
         else:
             plt.xlim([0, 1])
         # ------------- Plot Setup ------------- #
-        plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1')
-        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal')
+        plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1', color='C1')
+        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal', color='C0')
+        
         # plt.legend(prop=dict(weight='bold', size='large'))
 
 fig.tight_layout()
 fig.subplots_adjust(top=0.85)
 if saveFigure:
-    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_plot_all' + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
+    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_plot_all_signal_2' + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
 
 
 

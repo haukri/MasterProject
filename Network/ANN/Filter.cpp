@@ -10,9 +10,15 @@ Filter::Filter(int input_size, int output_size, double* learning_rate, string ty
     if(filterType == "lowpass") {
         filter.lowpass(2000, normalizedFreq);
     }
+    else if(filterType == "highpass") {
+        filter.highpass(2000, normalizedFreq);
+    }
 };
 
 Eigen::MatrixXd Filter::forward(Eigen::MatrixXd input) {
     output(0,0) = filter.filter(input(0,0));
+    if(filter.getType() == 'h') {
+        output(0,0) += 0.5;
+    }
     return output;
 };

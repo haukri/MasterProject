@@ -3,6 +3,7 @@
 #include "math.h"
 #include "vector"
 #include "FIR.h"
+#include <iostream>
 
 
 //Implementation of the methods
@@ -22,18 +23,6 @@ double FIR::getCoeff (int i){
 
 
 char FIR::getType(){
-	if (type=='l' or type=='L'){
-	printf("\nLow-pass filter\n");
-	}
-	if (type=='h' or type=='H'){
-	printf("\nHigh-pass filter\n");
-	}
-	if (type=='s' or type=='S'){
-	printf("\nStop-band filter\n");
-	}
-	if (type=='p' or type=='P'){
-	printf("\nPass-band filter\n");
-	}
 	return type;
 }
 
@@ -135,15 +124,16 @@ void FIR::highpass(int M,double f){
 
 	if (f<0.0 or f>0.5){printf("\nThe frequency is not normalized\n");}
 	else{
-		this->setFreq(f,1);
+		this->setFreq(f,0);
 		this->setType('h');
 		int M=this->getTaps();
+		int W=M/2;
 
-		for (int i=-int(M/2); i<int(M/2); i++){
+		for (int i=-W; i<W; i++){
 			if (i==0) {
-				this->setCoeff(1-(2*f),i+int(M/2));
+				this->setCoeff(1-(2*f),W);
 			}else{		
-				this->setCoeff(-sin(2*M_PI*f*i)/(i*M_PI),i+int(M/2));
+				this->setCoeff(-sin(2*M_PI*f*i)/(i*M_PI),i+W);
 			}
 		}
 	}

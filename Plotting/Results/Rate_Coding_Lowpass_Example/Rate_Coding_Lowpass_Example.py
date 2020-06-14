@@ -22,10 +22,13 @@ def calculateRMSE(valueContent, population_id, scale=1, offset=0):
     rms = sqrt(mean_squared_error(y_signal, y_recon))
     return rms
 
-def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0):
+def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0, color=''):
     x = [float(x[0]) for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
     y = [float(x[4])*scale+offset for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
-    ax.plot(x, y, label=label)
+    if color:
+        ax.plot(x, y, label=label, color=color)
+    else:
+        ax.plot(x, y, label=label)
 
 def plotSpikeOutputs(eventContent, populationID, neuronID, color='blue', neuronOffset=0):
     x = [float(x[0]) for x in eventContent if populationID == x[1] and neuronID == x[2] and x[3] == '0']
@@ -52,12 +55,13 @@ def generateFrequencies(scale):
 
 arguments = [['0.5', '5', '0', '0', '0', '0', '0']]
 
-for dt, cutoffFreq in zip(['0.0001'], ['2']):
+for filterType, cutoffFreq in zip(['lowpass', 'highpass'], ['2','3']):
+    dt = '0.0001'
     valueContents = []
     eventContents = []
     populationIDs = []
     for arg in arguments:
-        output = check_output(['../../../build/Test/Rate_Coding_Lowpass_Example_Results', *arg, '500', dt, 'lowpass,' + cutoffFreq])
+        output = check_output(['../../../build/Test/Rate_Coding_Lowpass_Example_Results', *arg, '500', dt, filterType + ',' + cutoffFreq])
         populationIDs.append([output.decode('UTF-8').split('\n')[0], output.decode('UTF-8').split('\n')[1]])
 
         latest_event_file = max([f for f in os.scandir("../../../Logs") if "event" in f.name], key=lambda x: x.stat().st_mtime).name
@@ -85,7 +89,7 @@ for dt, cutoffFreq in zip(['0.0001'], ['2']):
         fig = plt.figure()
         ax1 = fig.add_subplot(gs[0, :])
         ax1.set_xlim([0, 10])
-        ax1.set_title('Rate coding \n Lowpass filtering, cutoff=' + cutoffFreq + 'Hz \n Signal frequencies = [' + ','.join(args) + ']', fontsize='x-large', fontweight='bold')
+        ax1.set_title('Rate coding \n ' + filterType.capitalize() + ' filtering, cutoff=' + cutoffFreq + 'Hz \n Signal frequencies = [' + ','.join(args[:2]) + ']Hz', fontsize='x-large', fontweight='bold')
         ax1.set_xlabel('Time [s]', fontsize='x-large', fontweight='bold')
         ax1.set_ylabel('Amplitude', fontsize='x-large', fontweight='bold')
 
@@ -108,16 +112,16 @@ for dt, cutoffFreq in zip(['0.0001'], ['2']):
         # plt.ylabel('Amplitude', fontsize='xx-large', fontweight='bold')
         # plt.grid()
 
-        plotFFT(ax2, valueContent, populationID[0], '0', float(dt))
-        plotFFT(ax3, valueContent, populationID[1], '0', float(dt), color='C1')
+        plotFFT(ax2, valueContent, populationID[0], '0', float(dt), color='C1')
+        plotFFT(ax3, valueContent, populationID[1], '0', float(dt))
         # ------------- Plot Setup ------------- #
-        plotValueOutputs(ax1, valueContent, populationID[0], '0', '3', label='Original signal')
-        plotValueOutputs(ax1, valueContent, populationID[1], '0', '3', label='Filtered signal')
+        plotValueOutputs(ax1, valueContent, populationID[0], '0', '3', label='Original signal', color='C1')
+        plotValueOutputs(ax1, valueContent, populationID[1], '0', '3', label='Filtered signal', color='C0')
         # plotValueOutputs(ax1, valueContent, '999', '0', '3', 'Test signal 1')
         ax1.legend(prop=dict(weight='bold', size='large'), loc='lower right')
         plt.tight_layout()
         if saveFigure:
-            plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_lowpass_example_' + dt.replace('.', '_') + '_' + args[-1] + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
+            plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'rate_coding_' + filterType + '_example_' + dt.replace('.', '_') + '_' + args[-1] + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
 
 
 # ------------- Save and show plot ------------- #

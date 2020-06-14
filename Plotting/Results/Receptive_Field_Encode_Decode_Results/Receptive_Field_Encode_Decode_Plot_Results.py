@@ -22,10 +22,13 @@ def calculateRMSE(valueContent, population_id, scale=1, offset=0):
     rms = sqrt(mean_squared_error(y_signal, y_recon))
     return rms
 
-def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0):
+def plotValueOutputs(ax, valueContent, populationID, neuronID, valueType, label='', scale=1, offset=0, color=''):
     x = [float(x[0]) for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
     y = [float(x[4])*scale+offset for x in valueContent if populationID == x[1] and neuronID == x[2] and valueType == x[3]]
-    ax.plot(x, y, label=label)
+    if color:
+        ax.plot(x, y, label=label, color=color)
+    else:
+        ax.plot(x, y, label=label)
 
 def plotSpikeOutputs(eventContent, populationID, neuronID, color='blue', neuronOffset=0):
     x = [float(x[0]) for x in eventContent if populationID == x[1] and neuronID == x[2] and x[3] == '0']
@@ -45,7 +48,7 @@ arguments = [generateFrequencies(1), generateFrequencies(6)]
 plt.rcParams['figure.figsize'] = (9,6)
 gs = gridspec.GridSpec(3, 2)
 fig = plt.figure()
-fig.suptitle('Population latency coding encode and decode of test signal 1', fontsize='large', fontweight='bold')
+fig.suptitle('Population latency coding encode and decode of test signal 2', fontsize='large', fontweight='bold')
 
 for index, dt, window in zip([0,1,2], ['0.001', '0.0001', '0.00001'], ['0.03', '0.003', '0.0003']):
     valueContents = []
@@ -53,7 +56,7 @@ for index, dt, window in zip([0,1,2], ['0.001', '0.0001', '0.00001'], ['0.03', '
     populationIDs = []
     spikePopulationIDs = []
     for arg in arguments:
-        output = check_output(['../../../build/Test/Receptive_Field_Coding_Encode_Decode_Results', *arg, window, '100', dt])
+        output = check_output(['../../../build/Test/Receptive_Field_Coding_Encode_Decode_Results', *arg, window, '100', dt, '0', '0.1'])
         populationIDs.append(output.decode('UTF-8').split('\n')[0])
         spikePopulationIDs.append(output.decode('UTF-8').split('\n')[1])
 
@@ -78,7 +81,7 @@ for index, dt, window in zip([0,1,2], ['0.001', '0.0001', '0.00001'], ['0.03', '
         ax = fig.add_subplot(gs[index, column])
         # ------------- Plot Setup ------------- #
         plt.rcParams['figure.figsize'] = (8,6)
-        plt.title('dt = ' + str(float(dt)*1000.0) + 'ms \n f = [' + ','.join(args) + ']' , fontsize='large', fontweight='bold')
+        plt.title('dt = ' + str(float(dt)*1000.0) + 'ms \n f = [' + ','.join(args) + ']Hz' , fontsize='large', fontweight='bold')
         if column == 0:
             plt.ylabel('Amplitude', fontsize='medium', fontweight='bold')
         if index == 2:
@@ -90,15 +93,16 @@ for index, dt, window in zip([0,1,2], ['0.001', '0.0001', '0.00001'], ['0.03', '
         else:
             plt.xlim([0, 1])
         # ------------- Plot Setup ------------- #
-        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal')
-        plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1')
+        
+        plotValueOutputs(ax, valueContent, '999', '0', '3', 'Test signal 1', color='C1')
+        plotValueOutputs(ax, valueContent, populationID, '0', '3', 'Decoded signal', color='C0')
         # plotSpikeOutputs(eventContent, spikePopulationID, '0')
         # plt.legend(prop=dict(weight='bold', size='large'))
 
 fig.tight_layout()
 fig.subplots_adjust(top=0.85)
 if saveFigure:
-    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'receptive_field_coding_plot_all' + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
+    plt.savefig(os.path.dirname(os.path.abspath(__file__)) + '/../figures/' + 'receptive_field_coding_plot_all_signal_2' + '.pdf', bbox_inches='tight', dpi=300, format='pdf')
 
 
 # ------------- Save and show plot ------------- #
